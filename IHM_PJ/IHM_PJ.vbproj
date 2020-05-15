@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{778F6A78-9232-4995-ADE5-11CEA523D6C1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>IHM_PJ.My.MyApplication</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>IHM_PJ</RootNamespace>
     <AssemblyName>IHM_PJ</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -47,6 +47,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -80,22 +83,26 @@
       <DependentUpon>ACCUEIL.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="App.vb" />
+    <Compile Include="Inscription.vb" />
+    <Compile Include="INS_EPREUVES.Designer.vb">
+      <DependentUpon>INS_EPREUVES.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form1.vb">
+    <Compile Include="INS_EPREUVES.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SAISIR_INSCRIPTION.Designer.vb">
-      <DependentUpon>SAISIR_INSCRIPTION.vb</DependentUpon>
+    <Compile Include="INS_SAISIE.Designer.vb">
+      <DependentUpon>INS_SAISIE.vb</DependentUpon>
     </Compile>
-    <Compile Include="SAISIR_INSCRIPTION.vb">
+    <Compile Include="INS_SAISIE.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Matière.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -109,8 +116,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="ACCUEIL.resx">
+      <DependentUpon>ACCUEIL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INS_EPREUVES.resx">
+      <DependentUpon>INS_EPREUVES.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INS_SAISIE.resx">
+      <DependentUpon>INS_SAISIE.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -120,6 +133,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

@@ -1,4 +1,5 @@
-﻿Imports System
+﻿Imports System.Resources
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -8,8 +9,8 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("IHM_PJ")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyTitle("Projet IHM")>
+<Assembly: AssemblyDescription("Jules DOUMECHE Hélène TE")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("IHM_PJ")>
 <Assembly: AssemblyCopyright("Copyright ©  2020")>
@@ -33,3 +34,4 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")>
 <Assembly: AssemblyFileVersion("1.0.0.0")>
+<Assembly: NeutralResourcesLanguage("fr")>
