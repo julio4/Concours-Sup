@@ -1,6 +1,6 @@
 # IHM_PJ
 
-[@LNivada](https://github.com/nivadada)
+[@Nivada](https://github.com/nivadada)
 [@Julio4](https://github.com/julio4)
 
 ## Presentation
