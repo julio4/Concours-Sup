@@ -1,19 +1,94 @@
 ﻿Public Class INS_EPREUVES
-    Const nbEcrits = 4
-    Const nbOral = 3
     Dim dernierChangement As Boolean
-    Private Sub INS_EPREUVES_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Lb_NOM.Text = INS_SAISIE.Nom.Text & " " & INS_SAISIE.Prénom.Text
-        chargerRégions()
+    Dim modification As Boolean
+    Public Sub initialiser()
+        Dim i As Integer = 0
+        'Région
+        For i = 0 To getRégions().Length - 1
+            If Not Cb_Région.Items.Contains(getRégions()(i)) Then
+                Cb_Région.Items.Add(getRégions()(i))
+            End If
+        Next i
         Cb_Région.Sorted = True
-        Cb_Région.SelectedIndex = 0
-        chargerMatières()
+        'Epreuves
+        i = 0
+        For Each control In Gb_Ecrit.Controls.OfType(Of CheckBox)
+
+            If (i < getMatièresEcrits().Length - 1) Then
+                control.Text = getMatièresEcrits()(i).Nom
+                control.Checked = False
+            Else
+                control.Visible = False
+            End If
+            i += 1
+        Next
+        i = 0
+        For Each control In Gb_Oral.Controls.OfType(Of CheckBox)
+            If (i < getMatièresOrales().Length - 1) Then
+                control.Text = getMatièresOrales()(i).Nom
+                control.Checked = False
+            Else
+                control.Visible = False
+            End If
+            i += 1
+        Next
+        Non.Checked = False
+        Oui.Checked = False
         Gb_Facultatif.Visible = False
-        EcritsRestants.Text = nbEcrits
-        OralsRestants.Text = nbOral
+    End Sub
+
+    Public Sub reinitialiser()
+        For Each control In Gb_Ecrit.Controls.OfType(Of CheckBox)
+            control.Checked = False
+        Next
+        For Each control In Gb_Oral.Controls.OfType(Of CheckBox)
+            control.Checked = False
+        Next
+        Cb_Région.SelectedIndex = 0
+        Non.Checked = False
+        Oui.Checked = False
+        Gb_Facultatif.Visible = False
+        EcritsRestants.Text = getNbEcrits()
+        OrauxRestants.Text = getNbOraux()
         dernierChangement = False
     End Sub
-    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AnnulerIns.Click
+
+    Public Sub chargerModification(ins As Inscription)
+        modification = True
+        reinitialiser()
+        For i As Integer = 0 To ins.écrits1.Length - 1
+            For Each control In Gb_Ecrit.Controls.OfType(Of CheckBox)
+                If (ins.écrits1(i).Nom = control.Text) Then
+                    control.Checked = True
+                    Exit For
+                End If
+            Next
+        Next i
+        For i As Integer = 0 To ins.oraux1.Length - 1
+            For Each control In Gb_Oral.Controls.OfType(Of CheckBox)
+                If (ins.oraux1(i).Nom = control.Text) Then
+                    control.Checked = True
+                    Exit For
+                End If
+            Next
+        Next i
+        For i As Integer = 0 To Cb_Région.Items.Count - 1
+            If (ins.Région1 = Cb_Région.Items(i)) Then
+                Cb_Région.SelectedIndex = i
+            End If
+        Next
+        If (ins.facultatif1.Equals("Non")) Then
+            Non.Checked = True
+        Else
+            Oui.Checked = True
+            For i As Integer = 0 To Cb_EpreuvesFacultatives.Items.Count - 1
+                If (ins.facultatif1 = Cb_EpreuvesFacultatives.Items(i)) Then
+                    Cb_EpreuvesFacultatives.SelectedIndex = i
+                End If
+            Next
+        End If
+    End Sub
+    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click
         Me.Hide()
         ACCUEIL.Show()
     End Sub
@@ -21,19 +96,31 @@
     Private Sub Bt_ValiderInsEpreuves_Click(sender As Object, e As EventArgs) Handles Bt_ValiderInsEpreuves.Click
         Dim correct As Boolean = True
         If (CInt(EcritsRestants.Text) > 0) Then
-            MsgBox("Vous devez sélectionner " & nbEcrits & " épreuves écrites.")
+            MsgBox("Vous devez sélectionner " & getNbEcrits() & " épreuves écrites.")
             correct = False
         End If
-        If (CInt(OralsRestants.Text) > 0) Then
-            MsgBox("Vous devez sélectionner " & nbOral & " épreuves orales.")
+        If (CInt(OrauxRestants.Text) > 0) Then
+            MsgBox("Vous devez sélectionner " & getNbOraux() & " épreuves orales.")
+            correct = False
+        End If
+        If (Oui.Checked And String.IsNullOrEmpty(Cb_EpreuvesFacultatives.SelectedItem)) Then
+            MsgBox("Vous devez sélectionner une épreuve facultative.")
+            correct = False
+        End If
+        If (Not Non.Checked And Not Oui.Checked) Then
+            MsgBox("Veuillez indiquer si vous souhaitez participer à une épreuve facultative ou non.")
             correct = False
         End If
 
         If (correct) Then
-            'Recuperer toutes les données et enregistrer dans New Inscription, ajout de l'inscription
-            enregistrerInscription()
+            If (modification) Then
+                modification = False
+                RECAPITULATIF.charger()
+            Else
+                RECAPITULATIF.chargerInscription()
+            End If
             Me.Hide()
-            ACCUEIL.Show()
+            RECAPITULATIF.Show()
         End If
     End Sub
 
@@ -69,15 +156,15 @@
     CheckBox18.CheckedChanged, CheckBox19.CheckedChanged, CheckBox20.CheckedChanged, CheckBox21.CheckedChanged
         If (Not dernierChangement) Then
             If (sender.checked) Then
-                If (CInt(OralsRestants.Text) = 0) Then
+                If (CInt(OrauxRestants.Text) = 0) Then
                     dernierChangement = True
                     sender.checked = False
                     MsgBox("Nombre maximal d'épreuves orales atteint.")
                 Else
-                    OralsRestants.Text = CInt(OralsRestants.Text) - 1
+                    OrauxRestants.Text = CInt(OrauxRestants.Text) - 1
                 End If
             Else
-                OralsRestants.Text = CInt(OralsRestants.Text) + 1
+                OrauxRestants.Text = CInt(OrauxRestants.Text) + 1
             End If
         End If
         dernierChangement = False
@@ -91,7 +178,7 @@
     End Sub
 
     Private Sub chargerFacultatif()
-        If (CInt(OralsRestants.Text) = 0 And CInt(EcritsRestants.Text) = 0) Then
+        If (CInt(OrauxRestants.Text) = 0 And CInt(EcritsRestants.Text) = 0) Then
             Gb_Facultatif.Visible = True
             Cb_EpreuvesFacultatives.Visible = False
             Dim listeFacultatif(10) As String

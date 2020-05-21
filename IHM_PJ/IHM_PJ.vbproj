@@ -83,6 +83,12 @@
       <DependentUpon>ACCUEIL.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="AFFICHAGE.Designer.vb">
+      <DependentUpon>AFFICHAGE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AFFICHAGE.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="App.vb" />
     <Compile Include="Inscription.vb" />
     <Compile Include="INS_EPREUVES.Designer.vb">
@@ -98,6 +104,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Matière.vb" />
+    <Compile Include="MODIFICATION.Designer.vb">
+      <DependentUpon>MODIFICATION.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MODIFICATION.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -114,10 +126,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="RECAPITULATIF.Designer.vb">
+      <DependentUpon>RECAPITULATIF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RECAPITULATIF.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ACCUEIL.resx">
       <DependentUpon>ACCUEIL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFFICHAGE.resx">
+      <DependentUpon>AFFICHAGE.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="INS_EPREUVES.resx">
       <DependentUpon>INS_EPREUVES.vb</DependentUpon>
@@ -125,11 +146,17 @@
     <EmbeddedResource Include="INS_SAISIE.resx">
       <DependentUpon>INS_SAISIE.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MODIFICATION.resx">
+      <DependentUpon>MODIFICATION.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RECAPITULATIF.resx">
+      <DependentUpon>RECAPITULATIF.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -34,7 +34,7 @@ Partial Class INS_SAISIE
         Me.Lb_Ville = New System.Windows.Forms.Label()
         Me.Lb_Age = New System.Windows.Forms.Label()
         Me.Bt_ValiderInsSaisie = New System.Windows.Forms.Button()
-        Me.Bt_AnnulerIns = New System.Windows.Forms.Button()
+        Me.Bt_AbandonnerIns = New System.Windows.Forms.Button()
         Me.Sb_Age = New System.Windows.Forms.HScrollBar()
         Me.Age = New System.Windows.Forms.Label()
         Me.SuspendLayout()
@@ -138,14 +138,14 @@ Partial Class INS_SAISIE
         Me.Bt_ValiderInsSaisie.Text = "Valider"
         Me.Bt_ValiderInsSaisie.UseVisualStyleBackColor = True
         '
-        'Bt_AnnulerIns
+        'Bt_AbandonnerIns
         '
-        Me.Bt_AnnulerIns.Location = New System.Drawing.Point(575, 190)
-        Me.Bt_AnnulerIns.Name = "Bt_AnnulerIns"
-        Me.Bt_AnnulerIns.Size = New System.Drawing.Size(189, 43)
-        Me.Bt_AnnulerIns.TabIndex = 13
-        Me.Bt_AnnulerIns.Text = "Annuler"
-        Me.Bt_AnnulerIns.UseVisualStyleBackColor = True
+        Me.Bt_AbandonnerIns.Location = New System.Drawing.Point(575, 190)
+        Me.Bt_AbandonnerIns.Name = "Bt_AbandonnerIns"
+        Me.Bt_AbandonnerIns.Size = New System.Drawing.Size(189, 43)
+        Me.Bt_AbandonnerIns.TabIndex = 13
+        Me.Bt_AbandonnerIns.Text = "Abandonner"
+        Me.Bt_AbandonnerIns.UseVisualStyleBackColor = True
         '
         'Sb_Age
         '
@@ -170,7 +170,7 @@ Partial Class INS_SAISIE
         Me.ClientSize = New System.Drawing.Size(835, 384)
         Me.Controls.Add(Me.Age)
         Me.Controls.Add(Me.Sb_Age)
-        Me.Controls.Add(Me.Bt_AnnulerIns)
+        Me.Controls.Add(Me.Bt_AbandonnerIns)
         Me.Controls.Add(Me.Bt_ValiderInsSaisie)
         Me.Controls.Add(Me.Lb_Age)
         Me.Controls.Add(Me.Lb_Ville)
@@ -202,7 +202,7 @@ Partial Class INS_SAISIE
     Friend WithEvents Lb_Ville As Label
     Friend WithEvents Lb_Age As Label
     Friend WithEvents Bt_ValiderInsSaisie As Button
-    Friend WithEvents Bt_AnnulerIns As Button
+    Friend WithEvents Bt_AbandonnerIns As Button
     Friend WithEvents Sb_Age As HScrollBar
     Friend WithEvents Age As Label
 End Class

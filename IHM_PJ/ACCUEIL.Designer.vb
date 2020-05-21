@@ -62,7 +62,7 @@ Partial Class ACCUEIL
         Me.Btn_BilanProvisoire.Name = "Btn_BilanProvisoire"
         Me.Btn_BilanProvisoire.Size = New System.Drawing.Size(281, 97)
         Me.Btn_BilanProvisoire.TabIndex = 3
-        Me.Btn_BilanProvisoire.Text = "Etablir bilan provisoire"
+        Me.Btn_BilanProvisoire.Text = "Etablir bilan - Mettre fin aux inscriptions"
         Me.Btn_BilanProvisoire.UseVisualStyleBackColor = True
         '
         'BTn_FinIns

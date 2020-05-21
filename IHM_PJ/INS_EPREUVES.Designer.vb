@@ -40,10 +40,10 @@ Partial Class INS_EPREUVES
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Lb_EcritsRestants = New System.Windows.Forms.Label()
         Me.EcritsRestants = New System.Windows.Forms.Label()
-        Me.OralsRestants = New System.Windows.Forms.Label()
+        Me.OrauxRestants = New System.Windows.Forms.Label()
         Me.Lb_OralsRestants = New System.Windows.Forms.Label()
         Me.Bt_ValiderInsEpreuves = New System.Windows.Forms.Button()
-        Me.Bt_AnnulerIns = New System.Windows.Forms.Button()
+        Me.Bt_AbandonnerIns = New System.Windows.Forms.Button()
         Me.CheckBox17 = New System.Windows.Forms.CheckBox()
         Me.CheckBox15 = New System.Windows.Forms.CheckBox()
         Me.CheckBox18 = New System.Windows.Forms.CheckBox()
@@ -51,6 +51,7 @@ Partial Class INS_EPREUVES
         Me.CheckBox16 = New System.Windows.Forms.CheckBox()
         Me.CheckBox13 = New System.Windows.Forms.CheckBox()
         Me.Gb_Facultatif = New System.Windows.Forms.GroupBox()
+        Me.Cb_EpreuvesFacultatives = New System.Windows.Forms.ComboBox()
         Me.Non = New System.Windows.Forms.RadioButton()
         Me.Oui = New System.Windows.Forms.RadioButton()
         Me.Gb_Oral = New System.Windows.Forms.GroupBox()
@@ -58,7 +59,6 @@ Partial Class INS_EPREUVES
         Me.CheckBox21 = New System.Windows.Forms.CheckBox()
         Me.CheckBox19 = New System.Windows.Forms.CheckBox()
         Me.Lb_NOM = New System.Windows.Forms.Label()
-        Me.Cb_EpreuvesFacultatives = New System.Windows.Forms.ComboBox()
         Me.Gb_Ecrit.SuspendLayout()
         Me.Gb_Facultatif.SuspendLayout()
         Me.Gb_Oral.SuspendLayout()
@@ -75,6 +75,7 @@ Partial Class INS_EPREUVES
         '
         'Cb_Région
         '
+        Me.Cb_Région.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Cb_Région.FormattingEnabled = True
         Me.Cb_Région.Location = New System.Drawing.Point(155, 52)
         Me.Cb_Région.Name = "Cb_Région"
@@ -251,12 +252,12 @@ Partial Class INS_EPREUVES
         '
         'OralsRestants
         '
-        Me.OralsRestants.AutoSize = True
-        Me.OralsRestants.Location = New System.Drawing.Point(670, 476)
-        Me.OralsRestants.Name = "OralsRestants"
-        Me.OralsRestants.Size = New System.Drawing.Size(23, 25)
-        Me.OralsRestants.TabIndex = 8
-        Me.OralsRestants.Text = "3"
+        Me.OrauxRestants.AutoSize = True
+        Me.OrauxRestants.Location = New System.Drawing.Point(670, 476)
+        Me.OrauxRestants.Name = "OralsRestants"
+        Me.OrauxRestants.Size = New System.Drawing.Size(23, 25)
+        Me.OrauxRestants.TabIndex = 8
+        Me.OrauxRestants.Text = "3"
         '
         'Lb_OralsRestants
         '
@@ -276,14 +277,14 @@ Partial Class INS_EPREUVES
         Me.Bt_ValiderInsEpreuves.Text = "Valider"
         Me.Bt_ValiderInsEpreuves.UseVisualStyleBackColor = True
         '
-        'Bt_AnnulerIns
+        'Bt_AbandonnerIns
         '
-        Me.Bt_AnnulerIns.Location = New System.Drawing.Point(333, 513)
-        Me.Bt_AnnulerIns.Name = "Bt_AnnulerIns"
-        Me.Bt_AnnulerIns.Size = New System.Drawing.Size(189, 43)
-        Me.Bt_AnnulerIns.TabIndex = 14
-        Me.Bt_AnnulerIns.Text = "Annuler"
-        Me.Bt_AnnulerIns.UseVisualStyleBackColor = True
+        Me.Bt_AbandonnerIns.Location = New System.Drawing.Point(333, 513)
+        Me.Bt_AbandonnerIns.Name = "Bt_AbandonnerIns"
+        Me.Bt_AbandonnerIns.Size = New System.Drawing.Size(189, 43)
+        Me.Bt_AbandonnerIns.TabIndex = 14
+        Me.Bt_AbandonnerIns.Text = "Abandonner"
+        Me.Bt_AbandonnerIns.UseVisualStyleBackColor = True
         '
         'CheckBox17
         '
@@ -356,6 +357,15 @@ Partial Class INS_EPREUVES
         Me.Gb_Facultatif.TabIndex = 4
         Me.Gb_Facultatif.TabStop = False
         Me.Gb_Facultatif.Text = "Epreuve facultative"
+        '
+        'Cb_EpreuvesFacultatives
+        '
+        Me.Cb_EpreuvesFacultatives.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Cb_EpreuvesFacultatives.FormattingEnabled = True
+        Me.Cb_EpreuvesFacultatives.Location = New System.Drawing.Point(39, 134)
+        Me.Cb_EpreuvesFacultatives.Name = "Cb_EpreuvesFacultatives"
+        Me.Cb_EpreuvesFacultatives.Size = New System.Drawing.Size(180, 32)
+        Me.Cb_EpreuvesFacultatives.TabIndex = 16
         '
         'Non
         '
@@ -436,14 +446,6 @@ Partial Class INS_EPREUVES
         Me.Lb_NOM.TabIndex = 15
         Me.Lb_NOM.Text = "NOM"
         '
-        'Cb_EpreuvesFacultatives
-        '
-        Me.Cb_EpreuvesFacultatives.FormattingEnabled = True
-        Me.Cb_EpreuvesFacultatives.Location = New System.Drawing.Point(39, 134)
-        Me.Cb_EpreuvesFacultatives.Name = "Cb_EpreuvesFacultatives"
-        Me.Cb_EpreuvesFacultatives.Size = New System.Drawing.Size(180, 32)
-        Me.Cb_EpreuvesFacultatives.TabIndex = 16
-        '
         'INS_EPREUVES
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
@@ -451,9 +453,9 @@ Partial Class INS_EPREUVES
         Me.ClientSize = New System.Drawing.Size(1694, 591)
         Me.Controls.Add(Me.Lb_NOM)
         Me.Controls.Add(Me.Gb_Oral)
-        Me.Controls.Add(Me.Bt_AnnulerIns)
+        Me.Controls.Add(Me.Bt_AbandonnerIns)
         Me.Controls.Add(Me.Bt_ValiderInsEpreuves)
-        Me.Controls.Add(Me.OralsRestants)
+        Me.Controls.Add(Me.OrauxRestants)
         Me.Controls.Add(Me.Lb_OralsRestants)
         Me.Controls.Add(Me.EcritsRestants)
         Me.Controls.Add(Me.Lb_EcritsRestants)
@@ -493,10 +495,10 @@ Partial Class INS_EPREUVES
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents Lb_EcritsRestants As Label
     Friend WithEvents EcritsRestants As Label
-    Friend WithEvents OralsRestants As Label
+    Friend WithEvents OrauxRestants As Label
     Friend WithEvents Lb_OralsRestants As Label
     Friend WithEvents Bt_ValiderInsEpreuves As Button
-    Friend WithEvents Bt_AnnulerIns As Button
+    Friend WithEvents Bt_AbandonnerIns As Button
     Friend WithEvents CheckBox17 As CheckBox
     Friend WithEvents CheckBox15 As CheckBox
     Friend WithEvents CheckBox18 As CheckBox
