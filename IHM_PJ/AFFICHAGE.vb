@@ -15,6 +15,13 @@
         Next i
         Lb_Ecrits.Sorted = True
         Lb_Oraux.Sorted = True
+        Bt_Fin.Visible = False
+    End Sub
+
+    Public Sub initialiserBilan()
+        initialiser()
+        Me.Text = "Bilan Final"
+        Bt_Fin.Visible = True
     End Sub
 
     Private Sub chargerMatières(sender As Object, e As EventArgs) Handles Lb_Prenom.SelectedIndexChanged,
@@ -53,4 +60,9 @@
         Me.Hide()
         ACCUEIL.Show()
     End Sub
+
+    Private Sub Bt_Fin_Click(sender As Object, e As EventArgs) Handles Bt_Fin.Click
+        générerFichiers()
+    End Sub
+
 End Class

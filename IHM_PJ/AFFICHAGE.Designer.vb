@@ -35,6 +35,7 @@ Partial Class AFFICHAGE
         Me.Lb_écrits1 = New System.Windows.Forms.Label()
         Me.Lb_Orales1 = New System.Windows.Forms.Label()
         Me.Lb_facultative1 = New System.Windows.Forms.Label()
+        Me.Bt_Fin = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Lb_Num
@@ -154,11 +155,21 @@ Partial Class AFFICHAGE
         Me.Lb_facultative1.TabIndex = 12
         Me.Lb_facultative1.Text = "Epreuve facultative"
         '
+        'Bt_Fin
+        '
+        Me.Bt_Fin.Location = New System.Drawing.Point(508, 445)
+        Me.Bt_Fin.Name = "Bt_Fin"
+        Me.Bt_Fin.Size = New System.Drawing.Size(227, 38)
+        Me.Bt_Fin.TabIndex = 13
+        Me.Bt_Fin.Text = "Cloturer les inscriptions"
+        Me.Bt_Fin.UseVisualStyleBackColor = True
+        '
         'AFFICHAGE
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(787, 504)
+        Me.ClientSize = New System.Drawing.Size(787, 506)
+        Me.Controls.Add(Me.Bt_Fin)
         Me.Controls.Add(Me.Lb_facultative1)
         Me.Controls.Add(Me.Lb_Orales1)
         Me.Controls.Add(Me.Lb_écrits1)
@@ -192,4 +203,5 @@ Partial Class AFFICHAGE
     Friend WithEvents Lb_écrits1 As Label
     Friend WithEvents Lb_Orales1 As Label
     Friend WithEvents Lb_facultative1 As Label
+    Friend WithEvents Bt_Fin As Button
 End Class

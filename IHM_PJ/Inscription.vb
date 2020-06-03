@@ -35,21 +35,26 @@ Public Class Inscription
     Public Overrides Function ToString() As String
         Return nomIns & " " & prénomIns & " " & numIns
     End Function
-    Public Function contient(mat As Matière) As Boolean
+
+    Public Function contientEcrit(mat As Matière) As Boolean
         For i As Integer = 0 To écritsIns.Count - 1
-            If écritsIns(i).Equals(mat) Then
+            If écritsIns(i).ToString() = mat.ToString() Then
                 Return True
             End If
         Next i
-        For i As Integer = 0 To orauxIns.Count - 1
-            If orauxIns(i).Equals(mat) Then
-                Return True
-            End If
-        Next i
-        If facultatifIns.Equals(mat) Then
-            Return True
-        End If
         Return False
+    End Function
+
+    Public Function contientOral(mat As Matière) As Boolean
+        For i As Integer = 0 To orauxIns.Count - 1
+            If orauxIns(i).ToString() = mat.ToString() Then
+                Return True
+            End If
+        Next i
+        Return False
+    End Function
+    Public Function contient(mat As Matière) As Boolean
+        Return facultatifIns.Equals(mat) Or contientEcrit(mat) Or contientOral(mat)
     End Function
 
     Public Property Num As Integer

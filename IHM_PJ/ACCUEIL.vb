@@ -39,4 +39,9 @@
         Me.Text = "Accueil | " & DateString
     End Sub
 
+    Private Sub Bt_FinIns_Click(sender As Object, e As EventArgs) Handles Bt_FinIns.Click
+        Me.Hide()
+        AFFICHAGE.Show()
+        AFFICHAGE.initialiserBilan()
+    End Sub
 End Class

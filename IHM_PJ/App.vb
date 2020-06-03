@@ -1,8 +1,12 @@
 ﻿Imports System.IO
+Imports System.Text
 
 Module App
     Const NB_MATIERES_ECRITS = 12
     Const NB_MATIERES_ORALES = 9
+    Const CHEMIN_SAUVEGARDE_INSCRIPTION = "sauv_ins"
+    Const CHEMIN_SAUVEGARDE_NBINSCRITS = "sauv_nbInscrits"
+    Const CHEMIN_FIN_INSCRIPTIONS = "fin_inscription"
     'Les variables et constantes
     Dim matièresEcrit(NB_MATIERES_ECRITS - 1) As Matière
     Dim matièresOrales(NB_MATIERES_ORALES - 1) As Matière
@@ -65,12 +69,13 @@ Module App
         j += 1
         matièresOrales(j) = New Matière("Espagnol", "ESP")
 
-        If System.IO.File.Exists("sauvegarde_inscriptions") Then
+        If System.IO.File.Exists(CHEMIN_SAUVEGARDE_INSCRIPTION) And System.IO.File.Exists(CHEMIN_SAUVEGARDE_NBINSCRITS) Then
             Dim bf As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            Dim fStream As New FileStream("sauvegarde_inscriptions", FileMode.Open)
+            Dim fStream As New FileStream(CHEMIN_SAUVEGARDE_INSCRIPTION, FileMode.Open)
             inscriptions = bf.Deserialize(fStream)
             fStream.Close()
-            fStream = New FileStream("sauvegarde_nbInscrits", FileMode.Open)
+
+            fStream = New FileStream(CHEMIN_SAUVEGARDE_NBINSCRITS, FileMode.Open)
             dernierNumInscrits = bf.Deserialize(fStream)
             fStream.Close()
         End If
@@ -82,10 +87,10 @@ Module App
 
     Sub sauvegarder()
         Dim bf As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-        Dim fStream As New FileStream("sauvegarde_inscriptions", FileMode.Create)
+        Dim fStream As New FileStream(CHEMIN_SAUVEGARDE_INSCRIPTION, FileMode.Create)
         bf.Serialize(fStream, inscriptions)
         fStream.Close()
-        fStream = New FileStream("sauvegarde_nbInscrits", FileMode.Create)
+        fStream = New FileStream(CHEMIN_SAUVEGARDE_NBINSCRITS, FileMode.Create)
         bf.Serialize(fStream, dernierNumInscrits)
         fStream.Close()
     End Sub
@@ -93,6 +98,55 @@ Module App
     Sub quitter()
         Application.Exit()
         End
+    End Sub
+
+    Sub générerFichiers()
+        If (inscriptions.Count = 0 Or inscriptions Is Nothing) Then
+            MsgBox("Aucune inscriptions!")
+            Exit Sub
+        End If
+        If (Not System.IO.Directory.Exists(CHEMIN_FIN_INSCRIPTIONS)) Then
+            System.IO.Directory.CreateDirectory(CHEMIN_FIN_INSCRIPTIONS)
+        End If
+        My.Computer.FileSystem.MoveFile(CHEMIN_SAUVEGARDE_INSCRIPTION, CHEMIN_FIN_INSCRIPTIONS & "/" & CHEMIN_SAUVEGARDE_INSCRIPTION)
+        My.Computer.FileSystem.MoveFile(CHEMIN_SAUVEGARDE_NBINSCRITS, CHEMIN_FIN_INSCRIPTIONS & "/" & CHEMIN_SAUVEGARDE_NBINSCRITS)
+        inscriptions.Sort(Comparer(Of Inscription).Create(Function(i1, i2) If(i1.Nom = i2.Nom, i1.Prénom.CompareTo(i2.Prénom), i1.Nom.CompareTo(i2.Nom))))
+        Dim écrits As List(Of String) = New List(Of String)
+        For Each région In régions
+            For Each mat As Matière In matièresEcrit
+                Dim sb As New StringBuilder("")
+                For i As Integer = 0 To inscriptions.Count - 1
+                    If inscriptions(i).Région = région And inscriptions(i).contientEcrit(mat) Then
+                        sb.AppendLine(inscriptions(i).ToString())
+                    End If
+                Next i
+                If Not String.IsNullOrEmpty(sb.ToString()) Then
+                    Dim f As New StreamWriter(CHEMIN_FIN_INSCRIPTIONS & "/" & mat.ToString() & " " & région & ".txt")
+                    écrits.Add(mat.ToString() & UCase(région))
+                    f.WriteLine("ECRIT")
+                    f.Write(sb.ToString())
+                    f.Close()
+                End If
+            Next
+            For Each mat As Matière In matièresOrales
+                Dim sb As New StringBuilder("")
+                For i As Integer = 0 To inscriptions.Count - 1
+                    If inscriptions(i).Région = région And inscriptions(i).contientOral(mat) Then
+                        sb.AppendLine(inscriptions(i).ToString())
+                    End If
+                Next i
+                If Not String.IsNullOrEmpty(sb.ToString()) Then
+                    Dim f As New StreamWriter(CHEMIN_FIN_INSCRIPTIONS & "/" & mat.ToString() & " " & région & ".txt")
+                    If (écrits.Contains(mat.ToString() & UCase(région))) Then
+                        f.WriteLine()
+                    End If
+                    f.WriteLine("ORAL")
+                    f.Write(sb.ToString())
+                    f.Close()
+                End If
+            Next
+        Next
+        quitter()
     End Sub
 
     'GET POUR LES VARIABLES ET LES CONSTANTES
