@@ -22,6 +22,7 @@ Partial Class INS_SAISIE
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Nom = New System.Windows.Forms.TextBox()
         Me.Prénom = New System.Windows.Forms.TextBox()
         Me.Adresse = New System.Windows.Forms.TextBox()
@@ -37,6 +38,7 @@ Partial Class INS_SAISIE
         Me.Bt_AbandonnerIns = New System.Windows.Forms.Button()
         Me.Sb_Age = New System.Windows.Forms.HScrollBar()
         Me.Age = New System.Windows.Forms.Label()
+        Me.TimerSaisie = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Nom
@@ -163,6 +165,9 @@ Partial Class INS_SAISIE
         Me.Age.TabIndex = 15
         Me.Age.Text = "18"
         '
+        'TimerSaisie
+        '
+        '
         'INS_SAISIE
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
@@ -205,4 +210,5 @@ Partial Class INS_SAISIE
     Friend WithEvents Bt_AbandonnerIns As Button
     Friend WithEvents Sb_Age As HScrollBar
     Friend WithEvents Age As Label
+    Friend WithEvents TimerSaisie As Timer
 End Class

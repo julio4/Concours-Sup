@@ -1,6 +1,8 @@
 ﻿Public Class INS_EPREUVES
     Dim dernierChangement As Boolean
     Dim modification As Boolean
+    Private tempRestant As Integer
+    Const TEMPSLIMITE As Integer = 90
     Public Sub initialiser()
         Dim i As Integer = 0
         'Région
@@ -14,8 +16,8 @@
         i = 0
         For Each control In Gb_Ecrit.Controls.OfType(Of CheckBox)
 
-            If (i < getMatièresEcrits().Length - 1) Then
-                control.Text = getMatièresEcrits()(i).Nom
+            If (i < getMatièresEcrits().Length) Then
+                control.Text = getMatièresEcrits()(i).Libellé
                 control.Checked = False
             Else
                 control.Visible = False
@@ -24,8 +26,8 @@
         Next
         i = 0
         For Each control In Gb_Oral.Controls.OfType(Of CheckBox)
-            If (i < getMatièresOrales().Length - 1) Then
-                control.Text = getMatièresOrales()(i).Nom
+            If (i < getMatièresOrales().Length) Then
+                control.Text = getMatièresOrales()(i).Libellé
                 control.Checked = False
             Else
                 control.Visible = False
@@ -35,9 +37,10 @@
         Non.Checked = False
         Oui.Checked = False
         Gb_Facultatif.Visible = False
+        TimerEpreuves.Interval = 1000
     End Sub
 
-    Public Sub reinitialiser()
+    Public Sub charger()
         For Each control In Gb_Ecrit.Controls.OfType(Of CheckBox)
             control.Checked = False
         Next
@@ -51,44 +54,49 @@
         EcritsRestants.Text = getNbEcrits()
         OrauxRestants.Text = getNbOraux()
         dernierChangement = False
+        modification = False
+        tempRestant = TEMPSLIMITE
+        Me.Text = Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+        TimerEpreuves.Start()
     End Sub
 
     Public Sub chargerModification(ins As Inscription)
+        charger()
         modification = True
-        reinitialiser()
-        For i As Integer = 0 To ins.écrits1.Length - 1
+        For i As Integer = 0 To ins.Ecrits.Length - 1
             For Each control In Gb_Ecrit.Controls.OfType(Of CheckBox)
-                If (ins.écrits1(i).Nom = control.Text) Then
+                If (ins.Ecrits(i).Libellé = control.Text) Then
                     control.Checked = True
                     Exit For
                 End If
             Next
         Next i
-        For i As Integer = 0 To ins.oraux1.Length - 1
+        For i As Integer = 0 To ins.Oraux.Length - 1
             For Each control In Gb_Oral.Controls.OfType(Of CheckBox)
-                If (ins.oraux1(i).Nom = control.Text) Then
+                If (ins.Oraux(i).Libellé = control.Text) Then
                     control.Checked = True
                     Exit For
                 End If
             Next
         Next i
         For i As Integer = 0 To Cb_Région.Items.Count - 1
-            If (ins.Région1 = Cb_Région.Items(i)) Then
+            If (ins.Région = Cb_Région.Items(i)) Then
                 Cb_Région.SelectedIndex = i
             End If
         Next
-        If (ins.facultatif1.Equals("Non")) Then
+        If (ins.Facultatif.ToString().Equals("NON")) Then
             Non.Checked = True
         Else
             Oui.Checked = True
             For i As Integer = 0 To Cb_EpreuvesFacultatives.Items.Count - 1
-                If (ins.facultatif1 = Cb_EpreuvesFacultatives.Items(i)) Then
+                If (ins.Facultatif.ToString().Equals(Cb_EpreuvesFacultatives.Items(i))) Then
                     Cb_EpreuvesFacultatives.SelectedIndex = i
+                    Exit For
                 End If
             Next
         End If
     End Sub
-    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click
+    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
@@ -113,6 +121,7 @@
         End If
 
         If (correct) Then
+            TimerEpreuves.Stop()
             If (modification) Then
                 modification = False
                 RECAPITULATIF.charger()
@@ -213,6 +222,18 @@
             Gb_Ecrit.Enabled = True
             Gb_Oral.Enabled = True
             Cb_EpreuvesFacultatives.Visible = False
+        End If
+    End Sub
+
+    Private Sub TimerEpreuves_Tick(sender As Object, e As EventArgs) Handles TimerEpreuves.Tick
+        If tempRestant > 0 Then
+            tempRestant -= 1
+            Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+        Else
+            TimerEpreuves.Stop()
+            MessageBox.Show("Temps écoulé!", "Retour à l'Accueil")
+            Me.Hide()
+            ACCUEIL.Show()
         End If
     End Sub
 End Class

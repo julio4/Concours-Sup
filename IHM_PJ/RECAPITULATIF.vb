@@ -1,12 +1,14 @@
 ﻿Public Class RECAPITULATIF
     Dim inscription As Inscription
     Public Sub chargerInscription()
+        Me.Text = "Récapitulatif de la nouvelle inscription"
         charger()
         'Visibilité bouttons
         Bt_Enregistrer.Visible = True
         Bt_Modifier.Visible = True
         Bt_ValiderModification.Visible = False
         Bt_Supprimer.Visible = False
+        Bt_Arret.Visible = False
     End Sub
     Public Sub charger()
 
@@ -48,29 +50,49 @@
             INS_EPREUVES.Cb_EpreuvesFacultatives.SelectedItem, "Non")
     End Sub
 
+    Private Sub chargerRecapitulatif(ins As Inscription)
+        Bt_Enregistrer.Visible = False
+        Bt_Modifier.Visible = False
+        Bt_ValiderModification.Visible = False
+        Bt_Supprimer.Visible = False
+        Bt_Arret.Visible = False
+        Lb_Nom_Donnée.Text = ins.Nom & " " & ins.Prénom & ", " _
+            & ins.Age & " ans"
+        Lb_Adresse_Donnée.Text = ins.Adresse
+        Lb_CPVille_Donnée.Text = ins.CodePostal & " " & ins.Ville
+        Lb_Région_Donnée.Text = ins.Région
+        Ls_écrits.Items.Clear()
+        Ls_écrits.View = View.List
+        For i As Integer = 0 To ins.Ecrits.Length - 1
+            Ls_écrits.Items.Add(ins.Ecrits(i).Libellé)
+        Next
+        Ls_oraux.Items.Clear()
+        ''Ls_oraux.View = View.List
+        For i As Integer = 0 To ins.Oraux.Length - 1
+            Ls_oraux.Items.Add(ins.Oraux(i).Libellé)
+        Next
+        Lb_facultative_donnée.Text = ins.Facultatif.Libellé
+    End Sub
     Public Sub chargerSupprimer(ins As Inscription)
+        chargerRecapitulatif(ins)
+        Me.Text = "Récapitulatif de l'inscription à supprimer"
         inscription = ins
         Bt_Enregistrer.Visible = False
         Bt_Modifier.Visible = False
         Bt_ValiderModification.Visible = False
         Bt_Supprimer.Visible = True
+        Bt_Arret.Visible = False
+    End Sub
 
-        Lb_Nom_Donnée.Text = ins.Nom1 & " " & ins.Prénom1 & ", " _
-            & ins.Age1 & " ans"
-        Lb_Adresse_Donnée.Text = ins.Adresse1
-        Lb_CPVille_Donnée.Text = ins.CodePostal1 & " " & ins.Ville1
-        Lb_Région_Donnée.Text = ins.Région1
-        Ls_écrits.Items.Clear()
-        Ls_écrits.View = View.List
-        For i As Integer = 0 To ins.écrits1.Length - 1
-            Ls_écrits.Items.Add(ins.écrits1(i).Nom)
-        Next
-        Ls_oraux.Items.Clear()
-        ''Ls_oraux.View = View.List
-        For i As Integer = 0 To ins.oraux1.Length - 1
-            Ls_oraux.Items.Add(ins.oraux1(i).Nom)
-        Next
-        Lb_facultative_donnée.Text = ins.facultatif1.Nom
+    Public Sub chargerBilan(ins As Inscription)
+        chargerRecapitulatif(ins)
+        Me.Text = "Bilan de l'inscription du candidat"
+        inscription = ins
+        Bt_Enregistrer.Visible = False
+        Bt_Modifier.Visible = False
+        Bt_ValiderModification.Visible = False
+        Bt_Supprimer.Visible = False
+        Bt_Arret.Visible = True
     End Sub
 
     Public Sub chargerModification(ins As Inscription)
@@ -79,15 +101,17 @@
         Bt_Modifier.Visible = False
         Bt_ValiderModification.Visible = True
         Bt_Supprimer.Visible = False
+        Bt_Arret.Visible = False
     End Sub
 
-    Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click
+    Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
     Private Sub Bt_Modifier_Click(sender As Object, e As EventArgs) Handles Bt_Modifier.Click
         Me.Hide()
+        INS_SAISIE.chargerModification()
         INS_SAISIE.Show()
     End Sub
 
@@ -114,5 +138,12 @@
         End If
         Me.Hide()
         ACCUEIL.Show()
+    End Sub
+
+    Private Sub Bt_Arret_Click(sender As Object, e As EventArgs) Handles Bt_Arret.Click
+        '''A FAIRE : FONCTION ARRET
+        Application.Exit()
+        End
+        ''
     End Sub
 End Class

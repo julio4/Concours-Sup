@@ -1,14 +1,17 @@
-﻿Module App
+﻿Imports System.IO
 
+Module App
+    Const NB_MATIERES_ECRITS = 12
+    Const NB_MATIERES_ORALES = 9
     'Les variables et constantes
-    Dim matièresEcrit(12) As Matière
-    Dim matièresOrales(9) As Matière
+    Dim matièresEcrit(NB_MATIERES_ECRITS - 1) As Matière
+    Dim matièresOrales(NB_MATIERES_ORALES - 1) As Matière
     Dim matièreVide As Matière
     Dim régions() As String = {"Auvergne", "Bordelais", "Bourgogne",
     "Bretagne", "Corse", "Nord", "Normandie", "Paris", "Poitou",
     "Roussillon"}
-    Dim inscriptions As ArrayList = New ArrayList()
-    Dim nbInscrits As Integer = 0
+    Dim inscriptions As New List(Of Inscription)
+    Dim dernierNumInscrits As Integer = 0
     Const nbEcrits = 4
     Const nbOraux = 3
 
@@ -62,25 +65,34 @@
         j += 1
         matièresOrales(j) = New Matière("Espagnol", "ESP")
 
+        If System.IO.File.Exists("sauvegarde_inscriptions") Then
+            Dim bf As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            Dim fStream As New FileStream("sauvegarde_inscriptions", FileMode.Open)
+            inscriptions = bf.Deserialize(fStream)
+            fStream.Close()
+            fStream = New FileStream("sauvegarde_nbInscrits", FileMode.Open)
+            dernierNumInscrits = bf.Deserialize(fStream)
+            fStream.Close()
+        End If
     End Sub
     Sub main()
         initialisation()
-        'A ENLEVER'
-        nbInscrits += 1
-        inscriptions.Add(New Inscription(nbInscrits, "TE", "Hélène", "11 rue de bourges", 93160, "Noisy-Le-Grand", 18, "Paris",
-                                                   {matièresEcrit(0), matièresEcrit(2), matièresEcrit(3), matièresEcrit(4)},
-                                                   {matièresOrales(6), matièresOrales(7), matièresOrales(8)}, matièreVide))
-        nbInscrits += 1
-        inscriptions.Add(New Inscription(nbInscrits, "DOUMECHE", "Jules", "23 rue de merlan", 93130, "Noisy-Le-Sec", 18, "Auvergne",
-                                                   {matièresEcrit(6), matièresEcrit(7), matièresEcrit(3), matièresEcrit(4)},
-                                                   {matièresOrales(4), matièresOrales(7), matièresOrales(5)}, matièresOrales(6)))
-        nbInscrits += 1
-        inscriptions.Add(New Inscription(nbInscrits, "DOUMECHE", "Albert", "23 rue de merlan", 93130, "Noisy-Le-Sec", 18, "Auvergne",
-                                                   {matièresEcrit(6), matièresEcrit(7), matièresEcrit(3), matièresEcrit(4)},
-                                                   {matièresOrales(4), matièresOrales(7), matièresOrales(5)}, matièresOrales(6)))
-        'FIN'
-
         Application.Run(ACCUEIL)
+    End Sub
+
+    Sub sauvegarder()
+        Dim bf As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+        Dim fStream As New FileStream("sauvegarde_inscriptions", FileMode.Create)
+        bf.Serialize(fStream, inscriptions)
+        fStream.Close()
+        fStream = New FileStream("sauvegarde_nbInscrits", FileMode.Create)
+        bf.Serialize(fStream, dernierNumInscrits)
+        fStream.Close()
+    End Sub
+
+    Sub quitter()
+        Application.Exit()
+        End
     End Sub
 
     'GET POUR LES VARIABLES ET LES CONSTANTES
@@ -104,29 +116,39 @@
     End Function
 
     Function getNumDernierEnregistrement() As Integer
-        Return nbInscrits
+        Return dernierNumInscrits
     End Function
 
-    Function getInscriptions() As ArrayList
+    Function getInscriptions() As List(Of Inscription)
         Return inscriptions
     End Function
 
     Function getInscription(id As Integer) As Inscription
         For i As Integer = 0 To inscriptions.Count - 1
-            If (inscriptions(i).Num1 = id) Then
+            If (inscriptions(i).Num = id) Then
                 Return inscriptions(i)
             End If
         Next i
     End Function
 
+    Function getInscriptionMatière(mat As Matière) As ArrayList
+        Dim liste As ArrayList = New ArrayList()
+        For i As Integer = 0 To inscriptions.Count - 1
+            If (inscriptions(i).contient(mat) Or inscriptions(i).contient(mat)) Then
+                liste.Add(inscriptions(i))
+            End If
+        Next
+        Return liste
+    End Function
+
     Function getMatière(nom As String) As Matière
         For i As Integer = 0 To matièresEcrit.Length - 1
-            If (matièresEcrit(i).Nom = nom) Then
+            If (matièresEcrit(i).Libellé = nom) Then
                 Return matièresEcrit(i)
             End If
         Next
         For i As Integer = 0 To matièresOrales.Length - 1
-            If (matièresOrales(i).Nom = nom) Then
+            If (matièresOrales(i).Libellé = nom) Then
                 Return matièresOrales(i)
             End If
         Next
@@ -136,16 +158,16 @@
     'ENREGISTREMENT DES CANDIDATS
 
     Sub enregistrerInscription()
-        nbInscrits += 1
-        Dim écrits(nbEcrits) As Matière
+        dernierNumInscrits += 1
+        Dim écrits(nbEcrits - 1) As Matière
         For i As Integer = 0 To nbEcrits - 1
             écrits(i) = getMatière(RECAPITULATIF.Ls_écrits.Items(i).Text)
         Next i
-        Dim oraux(nbOraux) As Matière
+        Dim oraux(nbOraux - 1) As Matière
         For i As Integer = 0 To nbOraux - 1
             oraux(i) = getMatière(RECAPITULATIF.Ls_oraux.Items(i).Text)
         Next i
-        inscriptions.Add(New Inscription(nbInscrits, INS_SAISIE.Nom.Text, INS_SAISIE.Prénom.Text,
+        inscriptions.Add(New Inscription(dernierNumInscrits, INS_SAISIE.Nom.Text, INS_SAISIE.Prénom.Text,
                                                    INS_SAISIE.Adresse.Text, CInt(INS_SAISIE.CodePostal.Text), INS_SAISIE.Ville.Text _
                                                    , CInt(INS_SAISIE.Age.Text), RECAPITULATIF.Lb_Région_Donnée.Text, écrits, oraux,
                                                      getMatière(RECAPITULATIF.Lb_facultative_donnée.Text)))
@@ -155,7 +177,7 @@
 
     Function IdValide(id As Integer) As Boolean
         For i As Integer = 0 To inscriptions.Count - 1
-            If (inscriptions(i).Num1 = id) Then
+            If (inscriptions(i).Num = id) Then
                 Return True
             End If
         Next i
@@ -171,23 +193,40 @@
     End Sub
 
     Sub modifierInscription(ins As Inscription)
-        ins.Nom1 = INS_SAISIE.Nom.Text
-        ins.Prénom1 = INS_SAISIE.Prénom.Text
-        ins.Adresse1 = INS_SAISIE.Adresse.Text
-        ins.CodePostal1 = INS_SAISIE.CodePostal.Text
-        ins.Ville1 = INS_SAISIE.Ville.Text
-        ins.Age1 = CInt(INS_SAISIE.Age.Text)
-        ins.Région1 = RECAPITULATIF.Lb_Région_Donnée.Text
-        ins.facultatif1 = getMatière(RECAPITULATIF.Lb_facultative_donnée.Text)
-        Dim écrits(nbEcrits) As Matière
+        ins.Nom = INS_SAISIE.Nom.Text
+        ins.Prénom = INS_SAISIE.Prénom.Text
+        ins.Adresse = INS_SAISIE.Adresse.Text
+        ins.CodePostal = INS_SAISIE.CodePostal.Text
+        ins.Ville = INS_SAISIE.Ville.Text
+        ins.Age = CInt(INS_SAISIE.Age.Text)
+        ins.Région = RECAPITULATIF.Lb_Région_Donnée.Text
+        ins.Facultatif = getMatière(RECAPITULATIF.Lb_facultative_donnée.Text)
+        Dim écrits(nbEcrits - 1) As Matière
         For i As Integer = 0 To nbEcrits - 1
             écrits(i) = getMatière(RECAPITULATIF.Ls_écrits.Items(i).Text)
         Next i
-        Dim oraux(nbOraux) As Matière
+        Dim oraux(nbOraux - 1) As Matière
         For i As Integer = 0 To nbOraux - 1
             oraux(i) = getMatière(RECAPITULATIF.Ls_oraux.Items(i).Text)
         Next i
-        ins.écrits1 = écrits
-        ins.oraux1 = oraux
+        ins.Ecrits = écrits
+        ins.Oraux = oraux
     End Sub
+
+    Public Function afficherTempsRestant(sec As Integer) As String
+
+        Dim minutes As Integer = (Int(sec / 60))
+        Dim secondes As Integer = Int(sec Mod 60)
+
+        If secondes = 60 Then
+            minutes += 1
+            secondes = 0
+        End If
+
+        Return If(minutes > 0, CStr(minutes) &
+            If(minutes > 1, " minutes ", " minute "), "") &
+          Format(secondes, "00") &
+           If(secondes > 1, " secondes", " seconde")
+    End Function
+
 End Module

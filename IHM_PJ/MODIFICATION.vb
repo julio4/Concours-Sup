@@ -1,12 +1,14 @@
 ﻿Public Class MODIFICATION
     Dim ins As Inscription
     Public Sub reinitialiser()
+        Me.Text = "Modification des inscriptions"
         Rb_ListeCandidat.Checked = False
         Rb_NumCandidat.Checked = False
         numCandidat.Enabled = False
         Cb_Candidats.Enabled = False
         Bt_Modifier.Enabled = False
         Bt_Supprimer.Enabled = False
+        numCandidat.Text = ""
         Cb_Candidats.Items.Clear()
         If (getInscriptions.Count = 0) Then
             Me.Hide()
@@ -42,7 +44,7 @@
         End If
     End Sub
 
-    Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click
+    Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub

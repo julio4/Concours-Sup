@@ -1,8 +1,13 @@
 ﻿Public Class ACCUEIL
     Private Sub Btn_EnregistrerIns_Click(sender As Object, e As EventArgs) Handles Btn_EnregistrerIns.Click
         Me.Hide()
+        If Not Application.OpenForms().OfType(Of INS_SAISIE).Any Then
+            INS_SAISIE.initialiser()
+        End If
+        If Not Application.OpenForms().OfType(Of INS_EPREUVES).Any Then
+            INS_EPREUVES.initialiser()
+        End If
         INS_SAISIE.chargerInscription()
-        INS_EPREUVES.reinitialiser()
         INS_SAISIE.Show()
     End Sub
 
@@ -12,14 +17,26 @@
         MODIFICATION.reinitialiser()
     End Sub
 
-    Private Sub ACCUEIL_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        INS_EPREUVES.initialiser()
-        INS_SAISIE.initialiser()
-    End Sub
-
     Private Sub Btn_AfficherIns_Click(sender As Object, e As EventArgs) Handles Btn_AfficherIns.Click
-        AFFICHAGE.initialiser()
         Me.Hide()
         AFFICHAGE.Show()
+        AFFICHAGE.initialiser()
     End Sub
+
+    Private Sub ACCUEIL_Leave(sender As Object, e As EventArgs) Handles Bt_quitter.Click, MyBase.Closing
+        'ENREGISTRER LES DONNEES
+        sauvegarder()
+        quitter()
+    End Sub
+
+    Private Sub Btn_BilanProvisoire_Click(sender As Object, e As EventArgs) Handles Btn_BilanProvisoire.Click
+        Me.Hide()
+        BILAN_PROVISOIRE.Show()
+        BILAN_PROVISOIRE.initialiser()
+    End Sub
+
+    Private Sub ACCUEIL_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Text = "Accueil | " & DateString
+    End Sub
+
 End Class

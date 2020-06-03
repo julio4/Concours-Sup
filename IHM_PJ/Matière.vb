@@ -1,30 +1,35 @@
-﻿Public Class Matière
-    Private libellé As String
-    Private code As String
+﻿<Serializable()>
+Public Class Matière
+    Private libelléMat As String
+    Private codeMat As String
 
     Public Sub New()
-        libellé = "NON"
+        libelléMat = "NON"
     End Sub
-    Public Sub New(dés As String, c As String)
-        libellé = dés
-        code = c
+    Public Sub New(libellé As String, code As String)
+        libelléMat = libellé
+        codeMat = code
     End Sub
 
-    Public Property Nom As String
+    Public Overrides Function ToString() As String
+        Return libelléMat
+    End Function
+
+    Public Property Libellé As String
         Get
-            Return libellé
+            Return libelléMat
         End Get
         Set(value As String)
-            libellé = value
+            libelléMat = value
         End Set
     End Property
 
-    Public Property Code1 As String
+    Public Property Code As String
         Get
-            Return code
+            Return codeMat
         End Get
         Set(value As String)
-            code = value
+            codeMat = value
         End Set
     End Property
 End Class

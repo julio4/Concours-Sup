@@ -1,6 +1,8 @@
 ﻿Public Class INS_SAISIE
-    Dim ins As Inscription
-    Dim modification As Boolean
+    Private ins As Inscription
+    Private modification As Boolean
+    Private tempRestant As Integer
+    Const TEMPSLIMITE As Integer = 60
     Public Sub initialiser()
         CodePostal.MaxLength = 5
         Nom.MaxLength = 15
@@ -11,6 +13,7 @@
         Sb_Age.Maximum = 55
         Sb_Age.SmallChange = 1
         Sb_Age.LargeChange = 1
+        TimerSaisie.Interval = 1000
     End Sub
 
     Public Sub chargerInscription()
@@ -22,18 +25,28 @@
         Sb_Age.Value = 18
         Age.Text = 18
         modification = False
+        tempRestant = TEMPSLIMITE
+        Me.Text = Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+        TimerSaisie.Start()
     End Sub
 
-    Public Sub chargerModification(inscription As Inscription)
-        ins = inscription
+    Public Sub chargerModification()
         modification = True
-        Nom.Text = ins.Nom1
-        Prénom.Text = ins.Prénom1
-        Adresse.Text = ins.Adresse1
-        Ville.Text = ins.Ville1
-        CodePostal.Text = ins.CodePostal1
-        Sb_Age.Value = ins.Age1
-        Age.Text = ins.Age1
+        ins = Nothing
+    End Sub
+    Public Sub chargerModification(inscription As Inscription)
+        chargerModification()
+        ins = inscription
+        Nom.Text = ins.Nom
+        Prénom.Text = ins.Prénom
+        Adresse.Text = ins.Adresse
+        Ville.Text = ins.Ville
+        CodePostal.Text = ins.CodePostal
+        Sb_Age.Value = ins.Age
+        Age.Text = ins.Age
+        tempRestant = TEMPSLIMITE
+        Me.Text = Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+        TimerSaisie.Start()
     End Sub
     Private Sub Bt_ValiderInsSaisie_Click(sender As Object, e As EventArgs) Handles Bt_ValiderInsSaisie.Click
         'Verifier valeurs
@@ -81,17 +94,22 @@
         End If
 
         If (correct) Then
+            TimerSaisie.Stop()
             Me.Hide()
             'Initialiser INS_EPREUVES
             INS_EPREUVES.Lb_NOM.Text = Nom.Text & " " & Prénom.Text
             If (modification) Then
-                INS_EPREUVES.chargerModification(ins)
+                If (ins IsNot Nothing) Then
+                    INS_EPREUVES.chargerModification(ins)
+                End If
+            Else
+                INS_EPREUVES.charger()
             End If
             INS_EPREUVES.Show()
         End If
     End Sub
 
-    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click
+    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
@@ -130,5 +148,17 @@
 
     Private Sub Sb_Age_Scroll(sender As Object, e As ScrollEventArgs) Handles Sb_Age.Scroll
         Age.Text = CInt(Sb_Age.Value)
+    End Sub
+
+    Private Sub TimerSaisie_Tick(sender As Object, e As EventArgs) Handles TimerSaisie.Tick
+        If tempRestant > 0 Then
+            tempRestant -= 1
+            Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+        Else
+            TimerSaisie.Stop()
+            MessageBox.Show("Temps écoulé!", "Retour à l'Accueil")
+            Me.Hide()
+            ACCUEIL.Show()
+        End If
     End Sub
 End Class

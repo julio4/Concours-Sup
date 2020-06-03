@@ -41,6 +41,7 @@ Partial Class RECAPITULATIF
         Me.Bt_Modifier = New System.Windows.Forms.Button()
         Me.Bt_Supprimer = New System.Windows.Forms.Button()
         Me.Bt_ValiderModification = New System.Windows.Forms.Button()
+        Me.Bt_Arret = New System.Windows.Forms.Button()
         Me.Gb_InfoCandidat.SuspendLayout()
         Me.Gb_RecapEpreuves.SuspendLayout()
         Me.SuspendLayout()
@@ -236,11 +237,21 @@ Partial Class RECAPITULATIF
         Me.Bt_ValiderModification.Text = "Modifier"
         Me.Bt_ValiderModification.UseVisualStyleBackColor = True
         '
+        'Bt_Arret
+        '
+        Me.Bt_Arret.Location = New System.Drawing.Point(349, 642)
+        Me.Bt_Arret.Name = "Bt_Arret"
+        Me.Bt_Arret.Size = New System.Drawing.Size(300, 54)
+        Me.Bt_Arret.TabIndex = 11
+        Me.Bt_Arret.Text = "Arrêter l'Application"
+        Me.Bt_Arret.UseVisualStyleBackColor = True
+        '
         'RECAPITULATIF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(857, 713)
+        Me.Controls.Add(Me.Bt_Arret)
         Me.Controls.Add(Me.Bt_ValiderModification)
         Me.Controls.Add(Me.Bt_Supprimer)
         Me.Controls.Add(Me.Bt_Modifier)
@@ -279,4 +290,5 @@ Partial Class RECAPITULATIF
     Friend WithEvents Bt_ValiderModification As Button
     Friend WithEvents Ls_écrits As ListView
     Friend WithEvents Ls_oraux As ListView
+    Friend WithEvents Bt_Arret As Button
 End Class

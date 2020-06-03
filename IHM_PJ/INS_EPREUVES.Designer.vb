@@ -22,6 +22,7 @@ Partial Class INS_EPREUVES
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Lb_NomCandidat = New System.Windows.Forms.Label()
         Me.Cb_Région = New System.Windows.Forms.ComboBox()
         Me.Lb_Région = New System.Windows.Forms.Label()
@@ -59,6 +60,7 @@ Partial Class INS_EPREUVES
         Me.CheckBox21 = New System.Windows.Forms.CheckBox()
         Me.CheckBox19 = New System.Windows.Forms.CheckBox()
         Me.Lb_NOM = New System.Windows.Forms.Label()
+        Me.TimerEpreuves = New System.Windows.Forms.Timer(Me.components)
         Me.Gb_Ecrit.SuspendLayout()
         Me.Gb_Facultatif.SuspendLayout()
         Me.Gb_Oral.SuspendLayout()
@@ -250,11 +252,11 @@ Partial Class INS_EPREUVES
         Me.EcritsRestants.TabIndex = 6
         Me.EcritsRestants.Text = "4"
         '
-        'OralsRestants
+        'OrauxRestants
         '
         Me.OrauxRestants.AutoSize = True
         Me.OrauxRestants.Location = New System.Drawing.Point(670, 476)
-        Me.OrauxRestants.Name = "OralsRestants"
+        Me.OrauxRestants.Name = "OrauxRestants"
         Me.OrauxRestants.Size = New System.Drawing.Size(23, 25)
         Me.OrauxRestants.TabIndex = 8
         Me.OrauxRestants.Text = "3"
@@ -446,11 +448,14 @@ Partial Class INS_EPREUVES
         Me.Lb_NOM.TabIndex = 15
         Me.Lb_NOM.Text = "NOM"
         '
+        'TimerEpreuves
+        '
+        '
         'INS_EPREUVES
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1694, 591)
+        Me.ClientSize = New System.Drawing.Size(1337, 591)
         Me.Controls.Add(Me.Lb_NOM)
         Me.Controls.Add(Me.Gb_Oral)
         Me.Controls.Add(Me.Bt_AbandonnerIns)
@@ -514,4 +519,5 @@ Partial Class INS_EPREUVES
     Friend WithEvents Non As RadioButton
     Friend WithEvents Oui As RadioButton
     Friend WithEvents Cb_EpreuvesFacultatives As ComboBox
+    Friend WithEvents TimerEpreuves As Timer
 End Class

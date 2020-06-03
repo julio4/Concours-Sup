@@ -90,6 +90,18 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="App.vb" />
+    <Compile Include="BILAN_PROVISOIRE.Designer.vb">
+      <DependentUpon>BILAN_PROVISOIRE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BILAN_PROVISOIRE.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BILAN_INS.Designer.vb">
+      <DependentUpon>BILAN_INS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BILAN_INS.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inscription.vb" />
     <Compile Include="INS_EPREUVES.Designer.vb">
       <DependentUpon>INS_EPREUVES.vb</DependentUpon>
@@ -139,6 +151,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AFFICHAGE.resx">
       <DependentUpon>AFFICHAGE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BILAN_PROVISOIRE.resx">
+      <DependentUpon>BILAN_PROVISOIRE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BILAN_INS.resx">
+      <DependentUpon>BILAN_INS.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="INS_EPREUVES.resx">
       <DependentUpon>INS_EPREUVES.vb</DependentUpon>

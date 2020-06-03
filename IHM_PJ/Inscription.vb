@@ -1,131 +1,153 @@
-﻿Public Class Inscription
-    Private num As Integer
-    Private nom As String
-    Private prénom As String
-    Private adresse As String
-    Private codePostal As Integer
-    Private ville As String
-    Private age As Integer
-    Private région As String
-    Private écrits() As Matière
-    Private oraux() As Matière
-    Private facultatif As Matière
+﻿
+<Serializable()>
+Public Class Inscription
+
+    Private numIns As Integer
+    Private nomIns As String
+    Private prénomIns As String
+    Private adresseIns As String
+    Private codePostalIns As Integer
+    Private villeIns As String
+    Private ageIns As Integer
+    Private régionIns As String
+    Private écritsIns() As Matière
+    Private orauxIns() As Matière
+    Private facultatifIns As Matière
 
     Public Sub New()
 
     End Sub
-    Public Sub New(no As Integer, n As String, p As String, ad As String, cp As Integer, v As String, a As Integer, r As String, éc As Matière(), o As Matière(), fac As Matière)
-        num = no
-        nom = n
-        prénom = p
-        adresse = ad
-        codePostal = cp
-        ville = v
-        age = a
-        région = r
-        écrits = éc
-        oraux = o
-        facultatif = fac
+    Public Sub New(num As Integer, nom As String, prénom As String, adresse As String,
+            codePostal As Integer, ville As String, age As Integer, région As String,
+                   écrits As Matière(), oraux As Matière(), facultatif As Matière)
+        numIns = num
+        nomIns = nom
+        prénomIns = prénom
+        adresseIns = adresse
+        codePostalIns = codePostal
+        villeIns = ville
+        ageIns = age
+        régionIns = région
+        écritsIns = écrits
+        orauxIns = oraux
+        facultatifIns = facultatif
     End Sub
     Public Overrides Function ToString() As String
-        Return nom & " " & prénom & " " & num
+        Return nomIns & " " & prénomIns & " " & numIns
     End Function
-    Public Property Num1 As Integer
+    Public Function contient(mat As Matière) As Boolean
+        For i As Integer = 0 To écritsIns.Count - 1
+            If écritsIns(i).Equals(mat) Then
+                Return True
+            End If
+        Next i
+        For i As Integer = 0 To orauxIns.Count - 1
+            If orauxIns(i).Equals(mat) Then
+                Return True
+            End If
+        Next i
+        If facultatifIns.Equals(mat) Then
+            Return True
+        End If
+        Return False
+    End Function
+
+    Public Property Num As Integer
         Get
-            Return num
+            Return numIns
         End Get
         Set(value As Integer)
-            num = value
+            numIns = value
         End Set
     End Property
 
-    Public Property Nom1 As String
+    Public Property Nom As String
         Get
-            Return nom
+            Return nomIns
         End Get
         Set(value As String)
-            nom = value
+            nomIns = value
         End Set
     End Property
 
-    Public Property Prénom1 As String
+    Public Property Prénom As String
         Get
-            Return prénom
+            Return prénomIns
         End Get
         Set(value As String)
-            prénom = value
+            prénomIns = value
         End Set
     End Property
 
-    Public Property Adresse1 As String
+    Public Property Adresse As String
         Get
-            Return adresse
+            Return adresseIns
         End Get
         Set(value As String)
-            adresse = value
+            adresseIns = value
         End Set
     End Property
 
-    Public Property CodePostal1 As Integer
+    Public Property CodePostal As Integer
         Get
-            Return codePostal
+            Return codePostalIns
         End Get
         Set(value As Integer)
-            codePostal = value
+            codePostalIns = value
         End Set
     End Property
 
-    Public Property Ville1 As String
+    Public Property Ville As String
         Get
-            Return ville
+            Return villeIns
         End Get
         Set(value As String)
-            ville = value
+            villeIns = value
         End Set
     End Property
 
-    Public Property Age1 As Integer
+    Public Property Age As Integer
         Get
-            Return age
+            Return ageIns
         End Get
         Set(value As Integer)
-            age = value
+            ageIns = value
         End Set
     End Property
 
-    Public Property Région1 As String
+    Public Property Région As String
         Get
-            Return région
+            Return régionIns
         End Get
         Set(value As String)
-            région = value
+            régionIns = value
         End Set
     End Property
 
-    Public Property écrits1 As Matière()
+    Public Property Ecrits As Matière()
         Get
-            Return écrits
+            Return écritsIns
         End Get
         Set(value As Matière())
-            écrits = value
+            écritsIns = value
         End Set
     End Property
 
-    Public Property oraux1 As Matière()
+    Public Property Oraux As Matière()
         Get
-            Return oraux
+            Return orauxIns
         End Get
         Set(value As Matière())
-            oraux = value
+            orauxIns = value
         End Set
     End Property
 
-    Public Property facultatif1 As Matière
+    Public Property Facultatif As Matière
         Get
-            Return facultatif
+            Return facultatifIns
         End Get
         Set(value As Matière)
-            facultatif = value
+            facultatifIns = value
         End Set
     End Property
 End Class
