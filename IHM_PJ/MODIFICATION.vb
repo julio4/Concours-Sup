@@ -1,7 +1,7 @@
 ﻿Public Class MODIFICATION
     Dim ins As Inscription
     Public Sub reinitialiser()
-        Me.Text = "Modification des inscriptions"
+        Titre.Text = "Modification des inscriptions"
         Rb_ListeCandidat.Checked = False
         Rb_NumCandidat.Checked = False
         numCandidat.Enabled = False
@@ -44,7 +44,7 @@
         End If
     End Sub
 
-    Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, MyBase.Closing
+    Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
@@ -99,4 +99,27 @@
         End If
         Return False
     End Function
+
+    Dim draggable As Boolean
+    Dim MouseX As Integer
+    Dim MouseY As Integer
+    Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
+        draggable = True
+        MouseX = Cursor.Position.X - Me.Left
+        MouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
+        If draggable Then
+            Me.Top = Cursor.Position.Y - MouseY
+            Me.Left = Cursor.Position.X - MouseX
+        End If
+    End Sub
+
+    Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
+        draggable = False
+    End Sub
+    Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
+        Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
+    End Sub
 End Class

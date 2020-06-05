@@ -56,7 +56,7 @@
         dernierChangement = False
         modification = False
         tempRestant = TEMPSLIMITE
-        Me.Text = Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+        Titre.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
         TimerEpreuves.Start()
     End Sub
 
@@ -96,7 +96,7 @@
             Next
         End If
     End Sub
-    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, MyBase.Closing
+    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
@@ -215,12 +215,12 @@
 
     Private Sub Oui_CheckedChanged(sender As Object, e As EventArgs) Handles Oui.CheckedChanged
         If (Oui.Checked) Then
-            Gb_Ecrit.Enabled = False
-            Gb_Oral.Enabled = False
+            etatGb(Gb_Ecrit, False)
+            etatGb(Gb_Oral, False)
             Cb_EpreuvesFacultatives.Visible = True
         Else
-            Gb_Ecrit.Enabled = True
-            Gb_Oral.Enabled = True
+            etatGb(Gb_Ecrit, True)
+            etatGb(Gb_Oral, True)
             Cb_EpreuvesFacultatives.Visible = False
         End If
     End Sub
@@ -228,7 +228,7 @@
     Private Sub TimerEpreuves_Tick(sender As Object, e As EventArgs) Handles TimerEpreuves.Tick
         If tempRestant > 0 Then
             tempRestant -= 1
-            Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+            Titre.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
         Else
             TimerEpreuves.Stop()
             MessageBox.Show("Temps écoulé!", "Retour à l'Accueil")
@@ -236,4 +236,34 @@
             ACCUEIL.Show()
         End If
     End Sub
+
+    Private Sub etatGb(gb As GroupBox, etat As Boolean)
+        For Each control In gb.Controls.OfType(Of CheckBox)
+            control.Enabled = etat
+        Next
+    End Sub
+
+    Dim draggable As Boolean
+    Dim MouseX As Integer
+    Dim MouseY As Integer
+    Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
+        draggable = True
+        MouseX = Cursor.Position.X - Me.Left
+        MouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
+        If draggable Then
+            Me.Top = Cursor.Position.Y - MouseY
+            Me.Left = Cursor.Position.X - MouseX
+        End If
+    End Sub
+
+    Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
+        draggable = False
+    End Sub
+    Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
+        Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
+    End Sub
+
 End Class

@@ -1,7 +1,7 @@
 ﻿Public Class RECAPITULATIF
     Dim inscription As Inscription
     Public Sub chargerInscription()
-        Me.Text = "Récapitulatif de la nouvelle inscription"
+        Titre.Text = "Récapitulatif de la nouvelle inscription"
         charger()
         'Visibilité bouttons
         Bt_Enregistrer.Visible = True
@@ -75,7 +75,7 @@
     End Sub
     Public Sub chargerSupprimer(ins As Inscription)
         chargerRecapitulatif(ins)
-        Me.Text = "Récapitulatif de l'inscription à supprimer"
+        Titre.Text = "Récapitulatif de l'inscription à supprimer"
         inscription = ins
         Bt_Enregistrer.Visible = False
         Bt_Modifier.Visible = False
@@ -86,7 +86,7 @@
 
     Public Sub chargerBilan(ins As Inscription)
         chargerRecapitulatif(ins)
-        Me.Text = "Bilan de l'inscription du candidat"
+        Titre.Text = "Bilan de l'inscription du candidat"
         inscription = ins
         Bt_Enregistrer.Visible = False
         Bt_Modifier.Visible = False
@@ -104,7 +104,7 @@
         Bt_Arret.Visible = False
     End Sub
 
-    Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, MyBase.Closing
+    Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
@@ -143,5 +143,28 @@
     Private Sub Bt_Arret_Click(sender As Object, e As EventArgs) Handles Bt_Arret.Click
         sauvegarder()
         quitter()
+    End Sub
+
+    Dim draggable As Boolean
+    Dim MouseX As Integer
+    Dim MouseY As Integer
+    Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
+        draggable = True
+        MouseX = Cursor.Position.X - Me.Left
+        MouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
+        If draggable Then
+            Me.Top = Cursor.Position.Y - MouseY
+            Me.Left = Cursor.Position.X - MouseX
+        End If
+    End Sub
+
+    Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
+        draggable = False
+    End Sub
+    Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
+        Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
     End Sub
 End Class

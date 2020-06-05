@@ -82,7 +82,9 @@ Module App
     End Sub
     Sub main()
         initialisation()
-        Application.Run(ACCUEIL)
+        Application.EnableVisualStyles()
+            Application.SetCompatibleTextRenderingDefault(False)
+            Application.Run(ACCUEIL)
     End Sub
 
     Sub sauvegarder()

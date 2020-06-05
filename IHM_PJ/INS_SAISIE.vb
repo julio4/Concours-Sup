@@ -3,6 +3,7 @@
     Private modification As Boolean
     Private tempRestant As Integer
     Const TEMPSLIMITE As Integer = 60
+
     Public Sub initialiser()
         CodePostal.MaxLength = 5
         Nom.MaxLength = 15
@@ -26,7 +27,7 @@
         Age.Text = 18
         modification = False
         tempRestant = TEMPSLIMITE
-        Me.Text = Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+        Titre.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
         TimerSaisie.Start()
     End Sub
 
@@ -45,7 +46,7 @@
         Sb_Age.Value = ins.Age
         Age.Text = ins.Age
         tempRestant = TEMPSLIMITE
-        Me.Text = Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+        Titre.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
         TimerSaisie.Start()
     End Sub
     Private Sub Bt_ValiderInsSaisie_Click(sender As Object, e As EventArgs) Handles Bt_ValiderInsSaisie.Click
@@ -109,7 +110,7 @@
         End If
     End Sub
 
-    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, MyBase.Closing
+    Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
@@ -153,7 +154,7 @@
     Private Sub TimerSaisie_Tick(sender As Object, e As EventArgs) Handles TimerSaisie.Tick
         If tempRestant > 0 Then
             tempRestant -= 1
-            Me.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
+            Titre.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
         Else
             TimerSaisie.Stop()
             MessageBox.Show("Temps écoulé!", "Retour à l'Accueil")
@@ -161,4 +162,28 @@
             ACCUEIL.Show()
         End If
     End Sub
+
+    Dim draggable As Boolean
+    Dim MouseX As Integer
+    Dim MouseY As Integer
+    Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
+        draggable = True
+        MouseX = Cursor.Position.X - Me.Left
+        MouseY = Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
+        If draggable Then
+            Me.Top = Cursor.Position.Y - MouseY
+            Me.Left = Cursor.Position.X - MouseX
+        End If
+    End Sub
+
+    Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
+        draggable = False
+    End Sub
+    Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
+        Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
+    End Sub
+
 End Class
