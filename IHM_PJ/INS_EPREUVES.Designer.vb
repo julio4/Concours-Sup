@@ -470,6 +470,7 @@ Partial Class INS_EPREUVES
         Me.Controls.Add(Me.Cb_Région)
         Me.Controls.Add(Me.Lb_NomCandidat)
         Me.Name = "INS_EPREUVES"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form1"
         Me.Gb_Ecrit.ResumeLayout(False)
         Me.Gb_Ecrit.PerformLayout()

@@ -141,9 +141,7 @@
     End Sub
 
     Private Sub Bt_Arret_Click(sender As Object, e As EventArgs) Handles Bt_Arret.Click
-        '''A FAIRE : FONCTION ARRET
-        Application.Exit()
-        End
-        ''
+        sauvegarder()
+        quitter()
     End Sub
 End Class

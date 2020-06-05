@@ -81,7 +81,7 @@ Partial Class ACCUEIL
         Me.Bt_quitter.Name = "Bt_quitter"
         Me.Bt_quitter.Size = New System.Drawing.Size(122, 37)
         Me.Bt_quitter.TabIndex = 5
-        Me.Bt_quitter.Text = "quitter"
+        Me.Bt_quitter.Text = "Quitter"
         Me.Bt_quitter.UseVisualStyleBackColor = True
         '
         'ACCUEIL
@@ -96,6 +96,7 @@ Partial Class ACCUEIL
         Me.Controls.Add(Me.Btn_ModificationIns)
         Me.Controls.Add(Me.Btn_EnregistrerIns)
         Me.Name = "ACCUEIL"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form1"
         Me.ResumeLayout(False)
 

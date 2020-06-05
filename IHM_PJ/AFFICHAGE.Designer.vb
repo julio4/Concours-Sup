@@ -184,6 +184,7 @@ Partial Class AFFICHAGE
         Me.Controls.Add(Me.Lb_Nom)
         Me.Controls.Add(Me.Lb_Num)
         Me.Name = "AFFICHAGE"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "AFFICHAGE"
         Me.ResumeLayout(False)
         Me.PerformLayout()

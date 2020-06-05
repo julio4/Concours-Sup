@@ -109,6 +109,7 @@ Partial Class MODIFICATION
         Me.Controls.Add(Me.Bt_Modifier)
         Me.Controls.Add(Me.Bt_Annuler)
         Me.Name = "MODIFICATION"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MODIFICATION"
         Me.ResumeLayout(False)
         Me.PerformLayout()

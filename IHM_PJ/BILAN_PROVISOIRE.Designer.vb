@@ -108,7 +108,7 @@ Partial Class BILAN_PROVISOIRE
         Me.Bt_Annuler.Text = "Annuler"
         Me.Bt_Annuler.UseVisualStyleBackColor = True
         '
-        'BILAN
+        'BILAN_PROVISOIRE
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -121,7 +121,8 @@ Partial Class BILAN_PROVISOIRE
         Me.Controls.Add(Me.Cb_Candidats)
         Me.Controls.Add(Me.Rb_BilanInscription)
         Me.Controls.Add(Me.Rb_BilanIndividuel)
-        Me.Name = "BILAN"
+        Me.Name = "BILAN_PROVISOIRE"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "BILAN"
         Me.ResumeLayout(False)
         Me.PerformLayout()

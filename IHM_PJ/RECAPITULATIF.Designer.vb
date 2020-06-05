@@ -261,6 +261,7 @@ Partial Class RECAPITULATIF
         Me.Controls.Add(Me.Gb_InfoCandidat)
         Me.Controls.Add(Me.Lb_Recap)
         Me.Name = "RECAPITULATIF"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "RECAPITULATIF"
         Me.Gb_InfoCandidat.ResumeLayout(False)
         Me.Gb_InfoCandidat.PerformLayout()

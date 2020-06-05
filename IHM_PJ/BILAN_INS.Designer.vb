@@ -30,11 +30,11 @@ Partial Class BILAN_INS
         'Ls_Bilan
         '
         Me.Ls_Bilan.BackColor = System.Drawing.SystemColors.Control
-        Me.Ls_Bilan.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.Ls_Bilan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Ls_Bilan.HideSelection = False
-        Me.Ls_Bilan.Location = New System.Drawing.Point(50, 104)
+        Me.Ls_Bilan.Location = New System.Drawing.Point(50, 32)
         Me.Ls_Bilan.Name = "Ls_Bilan"
-        Me.Ls_Bilan.Size = New System.Drawing.Size(353, 392)
+        Me.Ls_Bilan.Size = New System.Drawing.Size(353, 447)
         Me.Ls_Bilan.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.Ls_Bilan.TabIndex = 15
         Me.Ls_Bilan.UseCompatibleStateImageBehavior = False
@@ -67,6 +67,7 @@ Partial Class BILAN_INS
         Me.Controls.Add(Me.Bt_Annuler)
         Me.Controls.Add(Me.Ls_Bilan)
         Me.Name = "BILAN_INS"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "BILAN_INS"
         Me.ResumeLayout(False)
 

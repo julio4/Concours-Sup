@@ -105,9 +105,11 @@ Module App
             MsgBox("Aucune inscriptions!")
             Exit Sub
         End If
-        If (Not System.IO.Directory.Exists(CHEMIN_FIN_INSCRIPTIONS)) Then
-            System.IO.Directory.CreateDirectory(CHEMIN_FIN_INSCRIPTIONS)
+        If (System.IO.Directory.Exists(CHEMIN_FIN_INSCRIPTIONS)) Then
+            My.Computer.FileSystem.DeleteDirectory(CHEMIN_FIN_INSCRIPTIONS, FileIO.DeleteDirectoryOption.DeleteAllContents)
         End If
+        System.IO.Directory.CreateDirectory(CHEMIN_FIN_INSCRIPTIONS)
+        sauvegarder()
         My.Computer.FileSystem.MoveFile(CHEMIN_SAUVEGARDE_INSCRIPTION, CHEMIN_FIN_INSCRIPTIONS & "/" & CHEMIN_SAUVEGARDE_INSCRIPTION)
         My.Computer.FileSystem.MoveFile(CHEMIN_SAUVEGARDE_NBINSCRITS, CHEMIN_FIN_INSCRIPTIONS & "/" & CHEMIN_SAUVEGARDE_NBINSCRITS)
         inscriptions.Sort(Comparer(Of Inscription).Create(Function(i1, i2) If(i1.Nom = i2.Nom, i1.Prénom.CompareTo(i2.Prénom), i1.Nom.CompareTo(i2.Nom))))
@@ -188,7 +190,7 @@ Module App
     Function getInscriptionMatière(mat As Matière) As ArrayList
         Dim liste As ArrayList = New ArrayList()
         For i As Integer = 0 To inscriptions.Count - 1
-            If (inscriptions(i).contient(mat) Or inscriptions(i).contient(mat)) Then
+            If inscriptions(i).contient(mat) Then
                 liste.Add(inscriptions(i))
             End If
         Next

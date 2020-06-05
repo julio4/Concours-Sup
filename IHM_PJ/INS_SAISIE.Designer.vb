@@ -189,6 +189,7 @@ Partial Class INS_SAISIE
         Me.Controls.Add(Me.Prénom)
         Me.Controls.Add(Me.Nom)
         Me.Name = "INS_SAISIE"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form1"
         Me.ResumeLayout(False)
         Me.PerformLayout()
