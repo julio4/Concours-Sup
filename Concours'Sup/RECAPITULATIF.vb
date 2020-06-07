@@ -118,14 +118,14 @@ Public Class RECAPITULATIF
         Bt_Arret.Visible = False
     End Sub
 
-    'Au clic du boutton abandonner ou quitter
+    'Au clic du bouton abandonner ou quitter
     'Retour à l'accueil
     Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
-    'Au clic du boutton modifier
+    'Au clic du bouton modifier
     'Chargement et affichage du formulaire de saisie avec l'inscription à modifier
     Private Sub Bt_Modifier_Click(sender As Object, e As EventArgs) Handles Bt_Modifier.Click
         Me.Hide()
@@ -133,7 +133,7 @@ Public Class RECAPITULATIF
         INS_SAISIE.Show()
     End Sub
 
-    'Au clic du boutton enregistrer
+    'Au clic du bouton enregistrer
     'Enregistre la nouvelle inscription en mémoire et affichage du numéro attribué
     Private Sub Bt_Enregistrer_Click(sender As Object, e As EventArgs) Handles Bt_Enregistrer.Click
         enregistrerInscription()
@@ -142,7 +142,7 @@ Public Class RECAPITULATIF
         ACCUEIL.Show()
     End Sub
 
-    'Au clic du boutton supprimer
+    'Au clic du bouton supprimer
     'Suppression du candidat dans la mémoire
     Private Sub Bt_Supprimer_Click(sender As Object, e As EventArgs) Handles Bt_Supprimer.Click
         If (Not IsNothing(inscription)) Then
@@ -153,7 +153,7 @@ Public Class RECAPITULATIF
         ACCUEIL.Show()
     End Sub
 
-    'Au clic du boutton modification
+    'Au clic du bouton modification
     'Modification de l'inscription avec les changements effectués
     Private Sub Bt_ValiderModification_Click(sender As Object, e As EventArgs) Handles Bt_ValiderModification.Click
         If (Not IsNothing(inscription)) Then
@@ -164,7 +164,7 @@ Public Class RECAPITULATIF
         ACCUEIL.Show()
     End Sub
 
-    'Au clic du boutton arrêt de l'application
+    'Au clic du bouton arrêt de l'application
     'Sauvegarde des inscriptions réalisées et quitter l'application
     Private Sub Bt_Arret_Click(sender As Object, e As EventArgs) Handles Bt_Arret.Click
         sauvegarder()

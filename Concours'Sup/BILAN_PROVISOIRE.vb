@@ -59,8 +59,8 @@ Public Class BILAN_PROVISOIRE
     End Sub
 
     'Au clic du boutton Afficher Bilan
-    'Si bilan individuel affichage du formulaire récapitulatif de l'inscription
-    'Si bilan d'une matière affichage du formulaire Bilan des Inscriptions de la matière choisie
+    'Si bilan individuel affichage du formulaire récapitulatif de l'inscription : RECAPITULATIF
+    'Si bilan d'une matière affichage du formulaire Bilan des Inscriptions de la matière choisie : BILAN_INS
     Private Sub AfficherBilan_Click(sender As Object, e As EventArgs) Handles AfficherBilan.Click
         If (Rb_BilanIndividuel.Checked) Then
             RECAPITULATIF.chargerBilan(Cb_Candidats.SelectedItem)

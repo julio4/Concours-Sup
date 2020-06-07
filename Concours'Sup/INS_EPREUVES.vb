@@ -10,7 +10,7 @@ Public Class INS_EPREUVES
     'Initialise les valeurs
     Public Sub initialiser()
         Dim i As Integer = 0
-        'Région
+        'Régions
         For i = 0 To getRégions().Length - 1
             If Not Cb_Région.Items.Contains(getRégions()(i)) Then
                 Cb_Région.Items.Add(getRégions()(i))
@@ -65,7 +65,7 @@ Public Class INS_EPREUVES
         TimerEpreuves.Start()
     End Sub
 
-    'Réinitialise et charge le formulaire por une modification d'une inscription existante
+    'Réinitialise et charge le formulaire pour une modification d'une inscription existante
     Public Sub chargerModification(ins As Inscription)
         charger()
         modification = True
@@ -103,17 +103,17 @@ Public Class INS_EPREUVES
         End If
     End Sub
 
-    'Au clic du boutton abandonner ou quitter
+    'Au clic du bouton abandonner ou quitter
     'Retour à l'accueil
     Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
-    'Au clic du boutton valider
+    'Au clic du bouton valider
     'Vérification des contraintes
     'Si erreur, affichage des détails de l'erreur
-    'Sinon chargement et affichage du formulaire récapitulatif
+    'Sinon chargement et affichage du formulaire RECAPITULATIF
     Private Sub Bt_ValiderInsEpreuves_Click(sender As Object, e As EventArgs) Handles Bt_ValiderInsEpreuves.Click
         Dim correct As Boolean = True
         If (CInt(EcritsRestants.Text) > 0) Then
@@ -206,7 +206,7 @@ Public Class INS_EPREUVES
     End Sub
 
     'Charge et affiche la sélection d'une matière facultatif si aucun oraux et écrits restants
-    'Sinon cache la sélection d'une matière facultatif
+    'Sinon cache la sélection d'une matière facultative
     Private Sub chargerFacultatif()
         If (CInt(OrauxRestants.Text) = 0 And CInt(EcritsRestants.Text) = 0) Then
             Gb_Facultatif.Visible = True
@@ -262,7 +262,7 @@ Public Class INS_EPREUVES
         End If
     End Sub
 
-    'Permet d'activer ou non (etat true ou False) tout les checkBox d'une groupbox donnée (gb)
+    'Permet d'activer ou non (etat true ou False) tout les checkBox d'un groupbox donné (gb)
     Private Sub etatGb(gb As GroupBox, etat As Boolean)
         For Each control In gb.Controls.OfType(Of CheckBox)
             control.Enabled = etat

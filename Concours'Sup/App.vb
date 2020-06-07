@@ -2,7 +2,7 @@
 Imports System.Text
 
 ''' <summary>
-''' Module Main contenant toutes les procédures pour gérer les inscriptions et toute les opérations sur celles-ci
+''' Module Main contenant toutes les procédures pour gérer les inscriptions et toutes les opérations sur celles-ci
 ''' Hélène TE, Jules DOUMECHE, 2020
 ''' </summary>
 Module App
@@ -14,13 +14,13 @@ Module App
     Dim régions() As String = {"Auvergne", "Bordelais", "Bourgogne",
     "Bretagne", "Corse", "Nord", "Normandie", "Paris", "Poitou",
     "Roussillon"}
-    'Le nombres d'épreuves écrits à sélectionner
+    'Le nombre d'épreuves écrits à sélectionner
     Const nbEcrits = 4
-    'Le nombres d'épreuves orales à sélectionner
+    'Le nombre d'épreuves orales à sélectionner
     Const nbOraux = 3
-    'Le nombre de matières disponible à l'écrit
+    'Le nombre de matières disponibles à l'écrit
     Const NB_MATIERES_ECRITS = 12
-    'Le nombre de matières disponible à l'oral
+    'Le nombre de matières disponibles à l'oral
     Const NB_MATIERES_ORALES = 9
     'nom du fichier de sauvegarde des inscriptions
     Const CHEMIN_SAUVEGARDE_INSCRIPTION = "sauv_ins"
@@ -37,7 +37,7 @@ Module App
     'Temps en seconde limite pour la saisie des épreuves d'une inscription
     Public Const TEMPS_LIMITE_EPREUVES = 90
 
-    'Initialisation des Objet et Variables de l'applicarion
+    'Initialisation des Objets et Variables de l'application
     Dim inscriptions As New List(Of Inscription)
     Dim matièresEcrit(NB_MATIERES_ECRITS - 1) As Matière
     Dim matièresOrales(NB_MATIERES_ORALES - 1) As Matière
@@ -109,7 +109,7 @@ Module App
     End Sub
 
     'Procédure Main(), entrée de l'application
-    'initialise les variables et affiche le formulaire accueil
+    'initialise les variables et affiche le formulaire ACCUEIL
     Sub main()
         initialisation()
         Application.EnableVisualStyles()
@@ -117,7 +117,7 @@ Module App
         Application.Run(ACCUEIL)
     End Sub
 
-    'Sauvegarde les inscriptions dans un fichier binaires afin de le charger à la prochaine execution de l'application
+    'Sauvegarde les inscriptions dans un fichier binaire afin de le charger à la prochaine éxecution de l'application
     Sub sauvegarder()
         Dim bf As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
         Dim fStream As New FileStream(CHEMIN_SAUVEGARDE_INSCRIPTION, FileMode.Create)
@@ -134,7 +134,7 @@ Module App
         End
     End Sub
 
-    'Génère les fichiers texte récapitulatif des inscriptions par régions et par matières
+    'Génère les fichiers texte récapitulatif des inscriptions par région et par matière
     'Enregistre les fichiers dans le chemin spécifié par CHEMIN_FIN_INSCRIPTIONS
     Sub générerFichiers()
         If (inscriptions.Count = 0 Or inscriptions Is Nothing) Then
@@ -335,6 +335,6 @@ Module App
             sender.Left = Cursor.Position.X - sender.MouseX
         End If
     End Sub
-    '''
+    ''''
 
 End Module

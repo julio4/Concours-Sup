@@ -1,5 +1,5 @@
 ﻿''' <summary>
-''' Formulaire d'Affichage récapitulatif de toute les inscriptions / Bilan Final
+''' Formulaire d'Affichage récapitulatif de toutes les inscriptions / Bilan Final
 ''' Hélène TE, Jules DOUMECHE, 2020
 ''' </summary>
 ''' 
@@ -33,7 +33,7 @@ Public Class AFFICHAGE
     End Sub
 
     'Au clic d'un des champs d'une inscription (nom/prénom/numéro)
-    'Affiche les codes des matières sélectionnés de l'inscription sélectionnée
+    'Affiche les codes des matières sélectionnées de l'inscription sélectionnée
     Private Sub chargerMatières(sender As Object, e As EventArgs) Handles Lb_Prenom.SelectedIndexChanged,
             Lb_Nom.SelectedIndexChanged, Lb_Num.SelectedIndexChanged
         If (sender.Equals(Lb_Num)) Then
@@ -66,14 +66,14 @@ Public Class AFFICHAGE
         End If
     End Sub
 
-    'Au clic du boutton retour ou quitter
+    'Au clic du bouton retour ou quitter
     'Retour à l'accueil
     Private Sub Bt_Retour_Click(sender As Object, e As EventArgs) Handles Bt_Retour.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
-    'Au clic du boutton Cloturer les inscriptions
+    'Au clic du bouton Cloturer les inscriptions
     'génère les fichiers textes des inscriptions
     Private Sub Bt_Fin_Click(sender As Object, e As EventArgs) Handles Bt_Fin.Click
         générerFichiers()

@@ -21,7 +21,7 @@ Public Class INS_SAISIE
         TimerSaisie.Interval = 1000 'Intervalle du timer de 1 seconde
     End Sub
 
-    'Charge le formulaire pour une nouvelle saisie dans le cadre d'une nouvelle inscriptions
+    'Charge le formulaire pour une nouvelle saisie dans le cadre d'une nouvelle inscription
     Public Sub chargerInscription()
         For Each control As Control In Me.Controls
             If TypeOf control Is TextBox Then
@@ -142,7 +142,7 @@ Public Class INS_SAISIE
         End If
     End Sub
 
-    'Au clic du boutton Abandonner
+    'Au clic du bouton Abandonner
     'Retour à l'accueil
     Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()

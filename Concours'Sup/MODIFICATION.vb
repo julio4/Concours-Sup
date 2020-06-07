@@ -53,14 +53,14 @@ Public Class MODIFICATION
         End If
     End Sub
 
-    'Au clic du boutton annuler ou quitter
+    'Au clic du bouton annuler ou quitter
     'Retour à l'accueil
     Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
-    'Au clic du boutton supprimer
+    'Au clic du bouton supprimer
     'charge et affiche le formulaire récapitulatif de l'inscription en mode suppression
     Private Sub Bt_Supprimer_Click(sender As Object, e As EventArgs) Handles Bt_Supprimer.Click
         If (validation()) Then
@@ -70,7 +70,7 @@ Public Class MODIFICATION
         End If
     End Sub
 
-    'Au clic du boutton modifier
+    'Au clic du bouton modifier
     'Charge les formulaires de saisies en mode modification de l'inscription
     'Affiche le premier formulaire de saisie des informations
     Private Sub Bt_Modifier_Click(sender As Object, e As EventArgs) Handles Bt_Modifier.Click

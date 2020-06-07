@@ -5,7 +5,7 @@
 ''' 
 Public Class BILAN_INS
 
-    'Initialisation du formulaire de bilan des inscription de la matière mat
+    'Initialisation du formulaire de BILAN_INS de la matière mat
     Public Sub initialiser(mat As Matière)
         Titre.Text = "Bilan " & mat.ToString()
         Dim inscriptions As List(Of Inscription) = getInscriptionMatière(mat)
@@ -16,14 +16,14 @@ Public Class BILAN_INS
         Next i
     End Sub
 
-    'Au clic du boutton annuler ou quitter
+    'Au clic du bouton annuler ou quitter
     'Retour à l'accueil
     Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
-    'Au clic du boutton arrêt
+    'Au clic du bouton arrêt
     'Sauvegarde des inscriptions en mémoire et arrêt de l'application
     Private Sub Bt_Arret_Click(sender As Object, e As EventArgs) Handles Bt_Arret.Click
         sauvegarder()

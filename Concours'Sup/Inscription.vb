@@ -60,7 +60,7 @@ Public Class Inscription
         Return False
     End Function
 
-    'Retourne vrai si l'inscription contient la matière mat en facultatif, faux sinon
+    'Retourne vrai si l'inscription contient la matière mat en facultative, faux sinon
     Public Function contientFacultatif(mat As Matière) As Boolean
         Return facultatifIns.ToString() = mat.ToString()
     End Function

@@ -44,9 +44,9 @@ Partial Class BILAN_PROVISOIRE
         '
         Me.Rb_BilanIndividuel.AutoSize = True
         Me.Rb_BilanIndividuel.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Rb_BilanIndividuel.Location = New System.Drawing.Point(77, 180)
+        Me.Rb_BilanIndividuel.Location = New System.Drawing.Point(66, 154)
         Me.Rb_BilanIndividuel.Name = "Rb_BilanIndividuel"
-        Me.Rb_BilanIndividuel.Size = New System.Drawing.Size(184, 29)
+        Me.Rb_BilanIndividuel.Size = New System.Drawing.Size(157, 26)
         Me.Rb_BilanIndividuel.TabIndex = 0
         Me.Rb_BilanIndividuel.TabStop = True
         Me.Rb_BilanIndividuel.Text = "Bilan Individuel"
@@ -56,9 +56,9 @@ Partial Class BILAN_PROVISOIRE
         '
         Me.Rb_BilanInscription.AutoSize = True
         Me.Rb_BilanInscription.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Rb_BilanInscription.Location = New System.Drawing.Point(77, 232)
+        Me.Rb_BilanInscription.Location = New System.Drawing.Point(66, 199)
         Me.Rb_BilanInscription.Name = "Rb_BilanInscription"
-        Me.Rb_BilanInscription.Size = New System.Drawing.Size(239, 29)
+        Me.Rb_BilanInscription.Size = New System.Drawing.Size(204, 26)
         Me.Rb_BilanInscription.TabIndex = 1
         Me.Rb_BilanInscription.TabStop = True
         Me.Rb_BilanInscription.Text = "Bilan des Inscriptions"
@@ -69,9 +69,9 @@ Partial Class BILAN_PROVISOIRE
         Me.Cb_Candidats.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Cb_Candidats.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cb_Candidats.FormattingEnabled = True
-        Me.Cb_Candidats.Location = New System.Drawing.Point(446, 211)
+        Me.Cb_Candidats.Location = New System.Drawing.Point(382, 181)
         Me.Cb_Candidats.Name = "Cb_Candidats"
-        Me.Cb_Candidats.Size = New System.Drawing.Size(262, 32)
+        Me.Cb_Candidats.Size = New System.Drawing.Size(225, 28)
         Me.Cb_Candidats.TabIndex = 4
         '
         'AfficherBilan
@@ -83,9 +83,9 @@ Partial Class BILAN_PROVISOIRE
         Me.AfficherBilan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(253, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.AfficherBilan.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.AfficherBilan.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AfficherBilan.Location = New System.Drawing.Point(438, 304)
+        Me.AfficherBilan.Location = New System.Drawing.Point(375, 261)
         Me.AfficherBilan.Name = "AfficherBilan"
-        Me.AfficherBilan.Size = New System.Drawing.Size(192, 45)
+        Me.AfficherBilan.Size = New System.Drawing.Size(165, 39)
         Me.AfficherBilan.TabIndex = 5
         Me.AfficherBilan.Text = "Afficher Bilan"
         Me.AfficherBilan.UseVisualStyleBackColor = False
@@ -94,9 +94,9 @@ Partial Class BILAN_PROVISOIRE
         '
         Me.Lb_Candidat.AutoSize = True
         Me.Lb_Candidat.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lb_Candidat.Location = New System.Drawing.Point(525, 180)
+        Me.Lb_Candidat.Location = New System.Drawing.Point(450, 154)
         Me.Lb_Candidat.Name = "Lb_Candidat"
-        Me.Lb_Candidat.Size = New System.Drawing.Size(105, 25)
+        Me.Lb_Candidat.Size = New System.Drawing.Size(87, 22)
         Me.Lb_Candidat.TabIndex = 6
         Me.Lb_Candidat.Text = "Candidat"
         '
@@ -104,9 +104,9 @@ Partial Class BILAN_PROVISOIRE
         '
         Me.Lb_Matière.AutoSize = True
         Me.Lb_Matière.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lb_Matière.Location = New System.Drawing.Point(525, 180)
+        Me.Lb_Matière.Location = New System.Drawing.Point(450, 154)
         Me.Lb_Matière.Name = "Lb_Matière"
-        Me.Lb_Matière.Size = New System.Drawing.Size(87, 25)
+        Me.Lb_Matière.Size = New System.Drawing.Size(72, 22)
         Me.Lb_Matière.TabIndex = 8
         Me.Lb_Matière.Text = "Matière"
         '
@@ -115,9 +115,9 @@ Partial Class BILAN_PROVISOIRE
         Me.Cb_Matières.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Cb_Matières.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cb_Matières.FormattingEnabled = True
-        Me.Cb_Matières.Location = New System.Drawing.Point(446, 211)
+        Me.Cb_Matières.Location = New System.Drawing.Point(382, 181)
         Me.Cb_Matières.Name = "Cb_Matières"
-        Me.Cb_Matières.Size = New System.Drawing.Size(262, 32)
+        Me.Cb_Matières.Size = New System.Drawing.Size(225, 28)
         Me.Cb_Matières.TabIndex = 7
         '
         'Bt_Annuler
@@ -129,9 +129,9 @@ Partial Class BILAN_PROVISOIRE
         Me.Bt_Annuler.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(253, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.Bt_Annuler.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Bt_Annuler.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Bt_Annuler.Location = New System.Drawing.Point(180, 304)
+        Me.Bt_Annuler.Location = New System.Drawing.Point(154, 261)
         Me.Bt_Annuler.Name = "Bt_Annuler"
-        Me.Bt_Annuler.Size = New System.Drawing.Size(192, 45)
+        Me.Bt_Annuler.Size = New System.Drawing.Size(165, 39)
         Me.Bt_Annuler.TabIndex = 9
         Me.Bt_Annuler.Text = "Annuler"
         Me.Bt_Annuler.UseVisualStyleBackColor = False
@@ -140,19 +140,19 @@ Partial Class BILAN_PROVISOIRE
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Euclid Circular A", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(71, 102)
+        Me.Label1.Location = New System.Drawing.Point(61, 87)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(274, 36)
+        Me.Label1.Size = New System.Drawing.Size(225, 30)
         Me.Label1.TabIndex = 10
-        Me.Label1.Text = "Nombres d'inscrits: "
+        Me.Label1.Text = "Nombre d'inscrits: "
         '
         'NbInscrits
         '
         Me.NbInscrits.AutoSize = True
         Me.NbInscrits.Font = New System.Drawing.Font("Euclid Circular A Medium", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NbInscrits.Location = New System.Drawing.Point(340, 102)
+        Me.NbInscrits.Location = New System.Drawing.Point(291, 87)
         Me.NbInscrits.Name = "NbInscrits"
-        Me.NbInscrits.Size = New System.Drawing.Size(162, 36)
+        Me.NbInscrits.Size = New System.Drawing.Size(141, 30)
         Me.NbInscrits.TabIndex = 11
         Me.NbInscrits.Text = "NbInscrits"
         '
@@ -165,7 +165,7 @@ Partial Class BILAN_PROVISOIRE
         Me.Pn_Top.Dock = System.Windows.Forms.DockStyle.Top
         Me.Pn_Top.Location = New System.Drawing.Point(0, 0)
         Me.Pn_Top.Name = "Pn_Top"
-        Me.Pn_Top.Size = New System.Drawing.Size(800, 50)
+        Me.Pn_Top.Size = New System.Drawing.Size(686, 43)
         Me.Pn_Top.TabIndex = 12
         '
         'Titre
@@ -174,9 +174,9 @@ Partial Class BILAN_PROVISOIRE
         Me.Titre.BackColor = System.Drawing.Color.Transparent
         Me.Titre.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Titre.ForeColor = System.Drawing.Color.White
-        Me.Titre.Location = New System.Drawing.Point(12, 14)
+        Me.Titre.Location = New System.Drawing.Point(10, 12)
         Me.Titre.Name = "Titre"
-        Me.Titre.Size = New System.Drawing.Size(73, 25)
+        Me.Titre.Size = New System.Drawing.Size(61, 22)
         Me.Titre.TabIndex = 16
         Me.Titre.Text = "Label1"
         '
@@ -189,9 +189,9 @@ Partial Class BILAN_PROVISOIRE
         Me.Bt_quitter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
         Me.Bt_quitter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent
         Me.Bt_quitter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Bt_quitter.Location = New System.Drawing.Point(745, 12)
+        Me.Bt_quitter.Location = New System.Drawing.Point(639, 10)
         Me.Bt_quitter.Name = "Bt_quitter"
-        Me.Bt_quitter.Size = New System.Drawing.Size(43, 29)
+        Me.Bt_quitter.Size = New System.Drawing.Size(37, 25)
         Me.Bt_quitter.TabIndex = 18
         Me.Bt_quitter.UseVisualStyleBackColor = False
         '
@@ -204,18 +204,18 @@ Partial Class BILAN_PROVISOIRE
         Me.Bt_Minimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
         Me.Bt_Minimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent
         Me.Bt_Minimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Bt_Minimize.Location = New System.Drawing.Point(687, 7)
+        Me.Bt_Minimize.Location = New System.Drawing.Point(589, 6)
         Me.Bt_Minimize.Name = "Bt_Minimize"
-        Me.Bt_Minimize.Size = New System.Drawing.Size(36, 38)
+        Me.Bt_Minimize.Size = New System.Drawing.Size(31, 33)
         Me.Bt_Minimize.TabIndex = 17
         Me.Bt_Minimize.UseVisualStyleBackColor = False
         '
         'BILAN_PROVISOIRE
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(168.0!, 168.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(800, 403)
+        Me.ClientSize = New System.Drawing.Size(686, 345)
         Me.Controls.Add(Me.Pn_Top)
         Me.Controls.Add(Me.NbInscrits)
         Me.Controls.Add(Me.Label1)
