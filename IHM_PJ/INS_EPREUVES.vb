@@ -1,8 +1,13 @@
-﻿Public Class INS_EPREUVES
+﻿''' <summary>
+''' Formulaire de saisies des épreuves sélectionnées par le candidat
+''' Hélène TE, Jules DOUMECHE, 2020
+''' </summary>
+Public Class INS_EPREUVES
     Dim dernierChangement As Boolean
     Dim modification As Boolean
     Private tempRestant As Integer
-    Const TEMPSLIMITE As Integer = 90
+
+    'Initialise les valeurs
     Public Sub initialiser()
         Dim i As Integer = 0
         'Région
@@ -15,7 +20,6 @@
         'Epreuves
         i = 0
         For Each control In Gb_Ecrit.Controls.OfType(Of CheckBox)
-
             If (i < getMatièresEcrits().Length) Then
                 control.Text = getMatièresEcrits()(i).Libellé
                 control.Checked = False
@@ -40,6 +44,7 @@
         TimerEpreuves.Interval = 1000
     End Sub
 
+    'Réinitialise et charge le formulaire pour une nouvelle saisie 
     Public Sub charger()
         For Each control In Gb_Ecrit.Controls.OfType(Of CheckBox)
             control.Checked = False
@@ -55,11 +60,12 @@
         OrauxRestants.Text = getNbOraux()
         dernierChangement = False
         modification = False
-        tempRestant = TEMPSLIMITE
+        tempRestant = TEMPS_LIMITE_EPREUVES
         Titre.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
         TimerEpreuves.Start()
     End Sub
 
+    'Réinitialise et charge le formulaire por une modification d'une inscription existante
     Public Sub chargerModification(ins As Inscription)
         charger()
         modification = True
@@ -96,11 +102,18 @@
             Next
         End If
     End Sub
+
+    'Au clic du boutton abandonner ou quitter
+    'Retour à l'accueil
     Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
+    'Au clic du boutton valider
+    'Vérification des contraintes
+    'Si erreur, affichage des détails de l'erreur
+    'Sinon chargement et affichage du formulaire récapitulatif
     Private Sub Bt_ValiderInsEpreuves_Click(sender As Object, e As EventArgs) Handles Bt_ValiderInsEpreuves.Click
         Dim correct As Boolean = True
         If (CInt(EcritsRestants.Text) > 0) Then
@@ -133,6 +146,9 @@
         End If
     End Sub
 
+    'Lors du clic d'un écrit
+    'Vérification des contraintes
+    'Si erreur affichage des détails de l'erreur
     Private Sub Ecrit_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged _
         , CheckBox2.CheckedChanged, CheckBox3.CheckedChanged, CheckBox4.CheckedChanged, CheckBox5.CheckedChanged,
         CheckBox6.CheckedChanged, CheckBox7.CheckedChanged, CheckBox8.CheckedChanged, CheckBox9.CheckedChanged,
@@ -160,6 +176,9 @@
         chargerFacultatif()
     End Sub
 
+    'Lors du clic d'un oral
+    'Vérification des contraintes
+    'Si erreur affichage des détails de l'erreur
     Private Sub Oral_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox13.CheckedChanged _
     , CheckBox14.CheckedChanged, CheckBox15.CheckedChanged, CheckBox16.CheckedChanged, CheckBox17.CheckedChanged,
     CheckBox18.CheckedChanged, CheckBox19.CheckedChanged, CheckBox20.CheckedChanged, CheckBox21.CheckedChanged
@@ -186,6 +205,8 @@
         chargerFacultatif()
     End Sub
 
+    'Charge et affiche la sélection d'une matière facultatif si aucun oraux et écrits restants
+    'Sinon cache la sélection d'une matière facultatif
     Private Sub chargerFacultatif()
         If (CInt(OrauxRestants.Text) = 0 And CInt(EcritsRestants.Text) = 0) Then
             Gb_Facultatif.Visible = True
@@ -213,6 +234,9 @@
         End If
     End Sub
 
+    'Lors de la sélection d'une matière facultative ou non
+    'Désactive la modification des matières écrites/orales si Oui
+    'Sinon non
     Private Sub Oui_CheckedChanged(sender As Object, e As EventArgs) Handles Oui.CheckedChanged
         If (Oui.Checked) Then
             etatGb(Gb_Ecrit, False)
@@ -225,6 +249,7 @@
         End If
     End Sub
 
+    'Affichage de l'heure actuelle et du temps restant dans le titre
     Private Sub TimerEpreuves_Tick(sender As Object, e As EventArgs) Handles TimerEpreuves.Tick
         If tempRestant > 0 Then
             tempRestant -= 1
@@ -237,33 +262,29 @@
         End If
     End Sub
 
+    'Permet d'activer ou non (etat true ou False) tout les checkBox d'une groupbox donnée (gb)
     Private Sub etatGb(gb As GroupBox, etat As Boolean)
         For Each control In gb.Controls.OfType(Of CheckBox)
             control.Enabled = etat
         Next
     End Sub
 
-    Dim draggable As Boolean
-    Dim MouseX As Integer
-    Dim MouseY As Integer
+    ''''
+    'Procédure pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
+    Public draggable As Boolean
+    Public MouseX As Integer
+    Public MouseY As Integer
     Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
-        draggable = True
-        MouseX = Cursor.Position.X - Me.Left
-        MouseY = Cursor.Position.Y - Me.Top
+        Pn_MouseDown(Me)
     End Sub
-
     Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
-        If draggable Then
-            Me.Top = Cursor.Position.Y - MouseY
-            Me.Left = Cursor.Position.X - MouseX
-        End If
+        Pn_MouseMove(Me)
     End Sub
-
     Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
         draggable = False
     End Sub
     Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
         Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
     End Sub
-
+    ''''
 End Class

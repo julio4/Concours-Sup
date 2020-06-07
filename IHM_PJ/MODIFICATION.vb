@@ -1,6 +1,13 @@
-﻿Public Class MODIFICATION
+﻿''' <summary>
+''' Formulaire de modification d'une inscription
+''' Hélène TE, Jules DOUMECHE, 2020
+''' </summary>
+Public Class MODIFICATION
     Dim ins As Inscription
-    Public Sub reinitialiser()
+
+    'Mise en place des contraintes et chargement des inscriptions
+    'Si aucune inscription affichage d'un message d'erreur
+    Public Sub initialiser()
         Titre.Text = "Modification des inscriptions"
         Rb_ListeCandidat.Checked = False
         Rb_NumCandidat.Checked = False

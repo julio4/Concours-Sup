@@ -16,8 +16,14 @@
 
     Private Sub Btn_ModificationIns_Click(sender As Object, e As EventArgs) Handles Btn_ModificationIns.Click
         Me.Hide()
+        If Not Application.OpenForms().OfType(Of INS_SAISIE).Any Then
+            INS_SAISIE.initialiser()
+        End If
+        If Not Application.OpenForms().OfType(Of INS_EPREUVES).Any Then
+            INS_EPREUVES.initialiser()
+        End If
         MODIFICATION.Show()
-        MODIFICATION.reinitialiser()
+        MODIFICATION.initialiser()
     End Sub
 
     Private Sub Btn_AfficherIns_Click(sender As Object, e As EventArgs) Handles Btn_AfficherIns.Click

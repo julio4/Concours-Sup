@@ -1,40 +1,47 @@
-﻿Public Class INS_SAISIE
+﻿''' <summary>
+''' Formulaire de saisies des champs d'informations d'une inscription
+''' Hélène TE, Jules DOUMECHE, 2020
+''' </summary>
+Public Class INS_SAISIE
     Private ins As Inscription
     Private modification As Boolean
     Private tempRestant As Integer
-    Const TEMPSLIMITE As Integer = 60
 
+    'Initialise les contraintes et les valeurs
     Public Sub initialiser()
         CodePostal.MaxLength = 5
         Nom.MaxLength = 15
         Prénom.MaxLength = 20
         Adresse.MaxLength = 30
         Ville.MaxLength = 15
-        Sb_Age.Minimum = 18
-        Sb_Age.Maximum = 55
+        Sb_Age.Minimum = AGE_MIN
+        Sb_Age.Maximum = AGE_MAX
         Sb_Age.SmallChange = 1
         Sb_Age.LargeChange = 1
-        TimerSaisie.Interval = 1000
+        TimerSaisie.Interval = 1000 'Intervalle du timer de 1 seconde
     End Sub
 
+    'Charge le formulaire pour une nouvelle saisie dans le cadre d'une nouvelle inscriptions
     Public Sub chargerInscription()
         For Each control As Control In Me.Controls
             If TypeOf control Is TextBox Then
                 control.Text = String.Empty
             End If
         Next
-        Sb_Age.Value = 18
-        Age.Text = 18
+        Sb_Age.Value = AGE_MIN
+        Age.Text = AGE_MIN
         modification = False
-        tempRestant = TEMPSLIMITE
-        Titre.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
-        TimerSaisie.Start()
+        lancer_Timer()
+        réinitialiser_Champs()
     End Sub
 
+    'Met le formulaire en mode modification (pour un chargement ultérieur d'une inscription)
     Public Sub chargerModification()
         modification = True
         ins = Nothing
     End Sub
+
+    'Charger les données d'une inscription pour une modification
     Public Sub chargerModification(inscription As Inscription)
         chargerModification()
         ins = inscription
@@ -45,14 +52,32 @@
         CodePostal.Text = ins.CodePostal
         Sb_Age.Value = ins.Age
         Age.Text = ins.Age
-        tempRestant = TEMPSLIMITE
+        lancer_Timer()
+        réinitialiser_Champs()
+    End Sub
+
+    'Démarre le timer (durée limite précisée par TEMPS_LIMITE_SAISIE)
+    Private Sub lancer_Timer()
+        tempRestant = TEMPS_LIMITE_SAISIE
         Titre.Text = TimeString & " | Temps restant : " & afficherTempsRestant(tempRestant)
         TimerSaisie.Start()
     End Sub
-    Private Sub Bt_ValiderInsSaisie_Click(sender As Object, e As EventArgs) Handles Bt_ValiderInsSaisie.Click
-        'Verifier valeurs
-        Dim correct As Boolean = True
 
+    'Réinitialise les champs
+    Private Sub réinitialiser_Champs()
+        Lb_Nom.ForeColor = Color.Black
+        Lb_Prénom.ForeColor = Color.Black
+        Lb_Ville.ForeColor = Color.Black
+        Lb_Adresse.ForeColor = Color.Black
+        Lb_CodePostal.ForeColor = Color.Black
+    End Sub
+
+    'Au clic du boutton Valider:
+    'Vérification des valeurs saisies
+    'Si erreur, affichage en rouge des champs erronés
+    'Sinon chargement et affichage du formulaire de choix des matières
+    Private Sub Bt_ValiderInsSaisie_Click(sender As Object, e As EventArgs) Handles Bt_ValiderInsSaisie.Click
+        Dim correct As Boolean = True
         If (String.IsNullOrEmpty(Nom.Text)) Then
             Lb_Nom.ForeColor = Color.Red
             Nom.Focus()
@@ -73,6 +98,13 @@
             correct = False
         Else
             Lb_Ville.ForeColor = Color.Black
+        End If
+        If (String.IsNullOrEmpty(Adresse.Text)) Then
+            Lb_Adresse.ForeColor = Color.Red
+            Adresse.Focus()
+            correct = False
+        Else
+            Lb_Adresse.ForeColor = Color.Black
         End If
         If (String.IsNullOrEmpty(CodePostal.Text) Or CodePostal.Text.Length < 5) Then
             Lb_CodePostal.ForeColor = Color.Red
@@ -110,11 +142,14 @@
         End If
     End Sub
 
+    'Au clic du boutton Abandonner
+    'Retour à l'accueil
     Private Sub Bt_AnnulerIns_Click(sender As Object, e As EventArgs) Handles Bt_AbandonnerIns.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
+    'Mise en forme automatique des champs (Prénom, Ville: 1ère lettre en majuscule seulement, Nom: tout en majuscule)
     Private Sub INS_SAISIE_LostFocus(sender As Object, e As EventArgs) Handles Prénom.LostFocus, Ville.LostFocus, Nom.LostFocus
         If String.IsNullOrEmpty(sender.Text) Then Exit Sub
         If (sender.Equals(Prénom)) Then
@@ -131,10 +166,10 @@
             tab(0) = UCase(tab(0))
             sender.Text = New String(tab)
         End If
-
     End Sub
 
-    Private Sub INS_SAISIE_KeyPress(sender As Object, e As KeyPressEventArgs) Handles CodePostal.KeyPress, CodePostal.KeyPress, Nom.KeyPress, Prénom.KeyPress
+    'Contraintes de saisie des champs (Nom, Prénom: alphabétique, CodePostal: numérique)
+    Private Sub INS_SAISIE_KeyPress(sender As Object, e As KeyPressEventArgs) Handles CodePostal.KeyPress, Nom.KeyPress, Prénom.KeyPress
         If e.KeyChar = vbBack Or Char.IsControl(e.KeyChar) Then Exit Sub
         If (sender.Equals(CodePostal)) Then
             If Not Char.IsDigit(e.KeyChar) Then
@@ -147,10 +182,12 @@
         End If
     End Sub
 
+    'Scroll de la scrollbar d'âge: Affichage de l'âge
     Private Sub Sb_Age_Scroll(sender As Object, e As ScrollEventArgs) Handles Sb_Age.Scroll
         Age.Text = CInt(Sb_Age.Value)
     End Sub
 
+    'Affichage de l'heure actuelle et du temps restant dans le titre
     Private Sub TimerSaisie_Tick(sender As Object, e As EventArgs) Handles TimerSaisie.Tick
         If tempRestant > 0 Then
             tempRestant -= 1
@@ -163,27 +200,22 @@
         End If
     End Sub
 
-    Dim draggable As Boolean
-    Dim MouseX As Integer
-    Dim MouseY As Integer
+    ''''
+    'Procédure pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
+    Public draggable As Boolean
+    Public MouseX As Integer
+    Public MouseY As Integer
     Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
-        draggable = True
-        MouseX = Cursor.Position.X - Me.Left
-        MouseY = Cursor.Position.Y - Me.Top
+        Pn_MouseDown(Me)
     End Sub
-
     Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
-        If draggable Then
-            Me.Top = Cursor.Position.Y - MouseY
-            Me.Left = Cursor.Position.X - MouseX
-        End If
+        Pn_MouseMove(Me)
     End Sub
-
     Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
         draggable = False
     End Sub
     Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
         Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
     End Sub
-
+    ''''
 End Class

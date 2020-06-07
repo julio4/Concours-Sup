@@ -1,24 +1,19 @@
-﻿Public Class RECAPITULATIF
+﻿''' <summary>
+''' Formulaire récapitulatif d'une inscription
+''' Hélène TE, Jules DOUMECHE, 2020
+''' </summary>
+Public Class RECAPITULATIF
     Dim inscription As Inscription
-    Public Sub chargerInscription()
-        Titre.Text = "Récapitulatif de la nouvelle inscription"
-        charger()
-        'Visibilité bouttons
-        Bt_Enregistrer.Visible = True
-        Bt_Modifier.Visible = True
-        Bt_ValiderModification.Visible = False
-        Bt_Supprimer.Visible = False
-        Bt_Arret.Visible = False
-    End Sub
-    Public Sub charger()
 
+    'Charge les données dans les champs à partir des formulaires Saisies et Epreuves
+    '(nouvelle inscription, modification d'une inscription)
+    Public Sub charger()
         'Information du candidat
         Lb_Nom_Donnée.Text = INS_SAISIE.Nom.Text & " " & INS_SAISIE.Prénom.Text & ", " _
             & INS_SAISIE.Age.Text & " ans"
         Lb_Adresse_Donnée.Text = INS_SAISIE.Adresse.Text
         Lb_CPVille_Donnée.Text = INS_SAISIE.CodePostal.Text & " " & INS_SAISIE.Ville.Text
         Lb_Région_Donnée.Text = INS_EPREUVES.Cb_Région.SelectedItem
-
         'Afficher épreuves
         Dim epreuvesEcrites(getNbEcrits() - 1) As String
         Dim epreuvesOrales(getNbOraux() - 1) As String
@@ -50,7 +45,10 @@
             INS_EPREUVES.Cb_EpreuvesFacultatives.SelectedItem, "Non")
     End Sub
 
+    'Charge les données dans les champs à partir d'une inscription
+    '(Supprimer une inscription, Bilan d'une inscription)
     Private Sub chargerRecapitulatif(ins As Inscription)
+        Titre.Text = "Récapitulatif " & ins.ToString()
         Bt_Enregistrer.Visible = False
         Bt_Modifier.Visible = False
         Bt_ValiderModification.Visible = False
@@ -67,15 +65,28 @@
             Ls_écrits.Items.Add(ins.Ecrits(i).Libellé)
         Next
         Ls_oraux.Items.Clear()
-        ''Ls_oraux.View = View.List
+        Ls_oraux.View = View.List
         For i As Integer = 0 To ins.Oraux.Length - 1
             Ls_oraux.Items.Add(ins.Oraux(i).Libellé)
         Next
         Lb_facultative_donnée.Text = ins.Facultatif.Libellé
     End Sub
+
+    'Charge le formulaire lors d'une nouvelle inscription
+    Public Sub chargerInscription()
+        Titre.Text = "Récapitulatif de la nouvelle inscription"
+        charger()
+        Bt_Enregistrer.Visible = True
+        Bt_Modifier.Visible = True
+        Bt_ValiderModification.Visible = False
+        Bt_Supprimer.Visible = False
+        Bt_Arret.Visible = False
+    End Sub
+
+    'Charge le formulaire lors d'une suppression d'une inscription
     Public Sub chargerSupprimer(ins As Inscription)
         chargerRecapitulatif(ins)
-        Titre.Text = "Récapitulatif de l'inscription à supprimer"
+        Titre.Text = "Récapitulatif supression " & ins.ToString()
         inscription = ins
         Bt_Enregistrer.Visible = False
         Bt_Modifier.Visible = False
@@ -84,9 +95,10 @@
         Bt_Arret.Visible = False
     End Sub
 
+    'Charge le formulaire lors d'un bilan d'une inscription
     Public Sub chargerBilan(ins As Inscription)
         chargerRecapitulatif(ins)
-        Titre.Text = "Bilan de l'inscription du candidat"
+        Titre.Text = "Bilan de l'inscription du candidat " & ins.ToString()
         inscription = ins
         Bt_Enregistrer.Visible = False
         Bt_Modifier.Visible = False
@@ -95,6 +107,7 @@
         Bt_Arret.Visible = True
     End Sub
 
+    'Charge le formulaire lors d'une modification d'une inscription
     Public Sub chargerModification(ins As Inscription)
         inscription = ins
         Bt_Enregistrer.Visible = False
@@ -104,17 +117,23 @@
         Bt_Arret.Visible = False
     End Sub
 
+    'Au clic du boutton abandonner ou quitter
+    'Retour à l'accueil
     Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
+    'Au clic du boutton modifier
+    'Chargement et affichage du formulaire de saisie avec l'inscription à modifier
     Private Sub Bt_Modifier_Click(sender As Object, e As EventArgs) Handles Bt_Modifier.Click
         Me.Hide()
         INS_SAISIE.chargerModification()
         INS_SAISIE.Show()
     End Sub
 
+    'Au clic du boutton enregistrer
+    'Enregistre la nouvelle inscription en mémoire et affichage du numéro attribué
     Private Sub Bt_Enregistrer_Click(sender As Object, e As EventArgs) Handles Bt_Enregistrer.Click
         enregistrerInscription()
         MsgBox("Enregistrement réalisé. Numéro de candidat attribué : " & getNumDernierEnregistrement())
@@ -122,6 +141,8 @@
         ACCUEIL.Show()
     End Sub
 
+    'Au clic du boutton supprimer
+    'Suppression du candidat dans la mémoire
     Private Sub Bt_Supprimer_Click(sender As Object, e As EventArgs) Handles Bt_Supprimer.Click
         If (Not IsNothing(inscription)) Then
             supprimerInscription(inscription)
@@ -131,6 +152,8 @@
         ACCUEIL.Show()
     End Sub
 
+    'Au clic du boutton modification
+    'Modification de l'inscription avec les changements effectués
     Private Sub Bt_ValiderModification_Click(sender As Object, e As EventArgs) Handles Bt_ValiderModification.Click
         If (Not IsNothing(inscription)) Then
             modifierInscription(inscription)
@@ -140,31 +163,29 @@
         ACCUEIL.Show()
     End Sub
 
+    'Au clic du boutton arrêt de l'application
+    'Sauvegarde des inscriptions réalisées et quitter l'application
     Private Sub Bt_Arret_Click(sender As Object, e As EventArgs) Handles Bt_Arret.Click
         sauvegarder()
         quitter()
     End Sub
 
-    Dim draggable As Boolean
-    Dim MouseX As Integer
-    Dim MouseY As Integer
+    ''''
+    'Procédure pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
+    Public draggable As Boolean
+    Public MouseX As Integer
+    Public MouseY As Integer
     Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
-        draggable = True
-        MouseX = Cursor.Position.X - Me.Left
-        MouseY = Cursor.Position.Y - Me.Top
+        Pn_MouseDown(Me)
     End Sub
-
     Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
-        If draggable Then
-            Me.Top = Cursor.Position.Y - MouseY
-            Me.Left = Cursor.Position.X - MouseX
-        End If
+        Pn_MouseMove(Me)
     End Sub
-
     Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
         draggable = False
     End Sub
     Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
         Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
     End Sub
+    ''''
 End Class

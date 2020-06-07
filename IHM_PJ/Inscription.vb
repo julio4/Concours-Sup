@@ -53,8 +53,13 @@ Public Class Inscription
         Next i
         Return False
     End Function
+
+    Public Function contientFacultatif(mat As Matière) As Boolean
+        Return facultatifIns.ToString() = mat.ToString()
+    End Function
+
     Public Function contient(mat As Matière) As Boolean
-        Return facultatifIns.ToString() = mat.ToString() Or contientEcrit(mat) Or contientOral(mat)
+        Return contientFacultatif(mat) Or contientEcrit(mat) Or contientOral(mat)
     End Function
 
     Public Property Num As Integer

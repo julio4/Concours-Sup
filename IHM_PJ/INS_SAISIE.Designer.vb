@@ -172,7 +172,7 @@ Partial Class INS_SAISIE
         Me.Bt_ValiderInsSaisie.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(253, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.Bt_ValiderInsSaisie.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Bt_ValiderInsSaisie.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Bt_ValiderInsSaisie.Location = New System.Drawing.Point(453, 328)
+        Me.Bt_ValiderInsSaisie.Location = New System.Drawing.Point(469, 327)
         Me.Bt_ValiderInsSaisie.Name = "Bt_ValiderInsSaisie"
         Me.Bt_ValiderInsSaisie.Size = New System.Drawing.Size(175, 48)
         Me.Bt_ValiderInsSaisie.TabIndex = 12
@@ -189,7 +189,7 @@ Partial Class INS_SAISIE
         Me.Bt_AbandonnerIns.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(253, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.Bt_AbandonnerIns.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Bt_AbandonnerIns.Font = New System.Drawing.Font("Euclid Circular A", 8.142858!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Bt_AbandonnerIns.Location = New System.Drawing.Point(698, 327)
+        Me.Bt_AbandonnerIns.Location = New System.Drawing.Point(693, 327)
         Me.Bt_AbandonnerIns.Name = "Bt_AbandonnerIns"
         Me.Bt_AbandonnerIns.Size = New System.Drawing.Size(175, 48)
         Me.Bt_AbandonnerIns.TabIndex = 13
@@ -259,7 +259,7 @@ Partial Class INS_SAISIE
         'Pn_Top
         '
         Me.Pn_Top.BackColor = System.Drawing.Color.Transparent
-        Me.Pn_Top.BackgroundImage = Global.IHM_PJ.My.Resources.Resources.Capture
+        Me.Pn_Top.BackgroundImage = Global.Concours_Sup.My.Resources.Resources.Capture
         Me.Pn_Top.Controls.Add(Me.Titre)
         Me.Pn_Top.Controls.Add(Me.Bt_quitter)
         Me.Pn_Top.Controls.Add(Me.Bt_Minimize)
@@ -283,7 +283,7 @@ Partial Class INS_SAISIE
         'Bt_quitter
         '
         Me.Bt_quitter.BackColor = System.Drawing.Color.Transparent
-        Me.Bt_quitter.BackgroundImage = Global.IHM_PJ.My.Resources.Resources.closeWhite
+        Me.Bt_quitter.BackgroundImage = Global.Concours_Sup.My.Resources.Resources.closeWhite
         Me.Bt_quitter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Bt_quitter.FlatAppearance.BorderSize = 0
         Me.Bt_quitter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
@@ -298,7 +298,7 @@ Partial Class INS_SAISIE
         'Bt_Minimize
         '
         Me.Bt_Minimize.BackColor = System.Drawing.Color.Transparent
-        Me.Bt_Minimize.BackgroundImage = Global.IHM_PJ.My.Resources.Resources.MinimalizeWhite
+        Me.Bt_Minimize.BackgroundImage = Global.Concours_Sup.My.Resources.Resources.MinimalizeWhite
         Me.Bt_Minimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Bt_Minimize.FlatAppearance.BorderSize = 0
         Me.Bt_Minimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent

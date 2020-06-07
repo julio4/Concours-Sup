@@ -7,6 +7,10 @@ Module App
     Const CHEMIN_SAUVEGARDE_INSCRIPTION = "sauv_ins"
     Const CHEMIN_SAUVEGARDE_NBINSCRITS = "sauv_nbInscrits"
     Const CHEMIN_FIN_INSCRIPTIONS = "fin_inscription"
+    Public Const AGE_MIN = 18
+    Public Const AGE_MAX = 55
+    Public Const TEMPS_LIMITE_SAISIE = 60
+    Public Const TEMPS_LIMITE_EPREUVES = 90
     'Les variables et constantes
     Dim matièresEcrit(NB_MATIERES_ECRITS - 1) As Matière
     Dim matièresOrales(NB_MATIERES_ORALES - 1) As Matière
@@ -125,28 +129,30 @@ Module App
                     End If
                 Next i
                 If Not String.IsNullOrEmpty(sb.ToString()) Then
-                    Dim f As New StreamWriter(CHEMIN_FIN_INSCRIPTIONS & "/" & mat.ToString() & " " & région & ".txt")
+                    Dim path As String = CHEMIN_FIN_INSCRIPTIONS & "/" & mat.ToString() & " " & région & ".txt"
                     écrits.Add(mat.ToString() & UCase(région))
-                    f.WriteLine("ECRIT")
-                    f.Write(sb.ToString())
-                    f.Close()
+                    Using sw As StreamWriter = File.AppendText(Path)
+                        sw.WriteLine("ECRIT")
+                        sw.Write(sb.ToString())
+                    End Using
                 End If
             Next
             For Each mat As Matière In matièresOrales
                 Dim sb As New StringBuilder("")
                 For i As Integer = 0 To inscriptions.Count - 1
-                    If inscriptions(i).Région = région And inscriptions(i).contientOral(mat) Then
+                    If inscriptions(i).Région = région And (inscriptions(i).contientOral(mat) Or inscriptions(i).contientFacultatif(mat)) Then
                         sb.AppendLine(inscriptions(i).ToString())
                     End If
                 Next i
                 If Not String.IsNullOrEmpty(sb.ToString()) Then
-                    Dim f As New StreamWriter(CHEMIN_FIN_INSCRIPTIONS & "/" & mat.ToString() & " " & région & ".txt")
-                    If (écrits.Contains(mat.ToString() & UCase(région))) Then
-                        f.WriteLine()
-                    End If
-                    f.WriteLine("ORAL")
-                    f.Write(sb.ToString())
-                    f.Close()
+                    Dim path As String = CHEMIN_FIN_INSCRIPTIONS & "/" & mat.ToString() & " " & région & ".txt"
+                    Using sw As StreamWriter = File.AppendText(path)
+                        If (écrits.Contains(mat.ToString() & UCase(région))) Then
+                            sw.WriteLine()
+                        End If
+                        sw.WriteLine("ORAL")
+                        sw.Write(sb.ToString())
+                    End Using
                 End If
             Next
         Next
@@ -287,4 +293,16 @@ Module App
            If(secondes > 1, " secondes", " seconde")
     End Function
 
+    Public Sub Pn_MouseDown(sender As Object)
+        sender.draggable = True
+        sender.MouseX = Cursor.Position.X - sender.Left
+        sender.MouseY = Cursor.Position.Y - sender.Top
+    End Sub
+
+    Public Sub Pn_MouseMove(sender As Object)
+        If sender.draggable Then
+            sender.Top = Cursor.Position.Y - sender.MouseY
+            sender.Left = Cursor.Position.X - sender.MouseX
+        End If
+    End Sub
 End Module

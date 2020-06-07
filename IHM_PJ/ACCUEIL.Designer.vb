@@ -113,7 +113,7 @@ Partial Class ACCUEIL
         '
         'Pn_Top
         '
-        Me.Pn_Top.BackgroundImage = Global.IHM_PJ.My.Resources.Resources.Capture
+        Me.Pn_Top.BackgroundImage = Global.Concours_Sup.My.Resources.Resources.Capture
         Me.Pn_Top.Controls.Add(Me.Bt_quitter)
         Me.Pn_Top.Controls.Add(Me.Bt_Minimize)
         Me.Pn_Top.Controls.Add(Me.Label1)
@@ -127,7 +127,7 @@ Partial Class ACCUEIL
         'Bt_quitter
         '
         Me.Bt_quitter.BackColor = System.Drawing.Color.Transparent
-        Me.Bt_quitter.BackgroundImage = Global.IHM_PJ.My.Resources.Resources.closeWhite
+        Me.Bt_quitter.BackgroundImage = Global.Concours_Sup.My.Resources.Resources.closeWhite
         Me.Bt_quitter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Bt_quitter.FlatAppearance.BorderSize = 0
         Me.Bt_quitter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
@@ -142,7 +142,7 @@ Partial Class ACCUEIL
         'Bt_Minimize
         '
         Me.Bt_Minimize.BackColor = System.Drawing.Color.Transparent
-        Me.Bt_Minimize.BackgroundImage = Global.IHM_PJ.My.Resources.Resources.MinimalizeWhite
+        Me.Bt_Minimize.BackgroundImage = Global.Concours_Sup.My.Resources.Resources.MinimalizeWhite
         Me.Bt_Minimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.Bt_Minimize.FlatAppearance.BorderSize = 0
         Me.Bt_Minimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent

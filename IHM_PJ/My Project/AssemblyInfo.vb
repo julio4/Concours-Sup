@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("Projet IHM")>
 <Assembly: AssemblyDescription("Jules DOUMECHE Hélène TE")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("IHM_PJ")>
+<Assembly: AssemblyProduct("Concours_Sup")>
 <Assembly: AssemblyCopyright("Copyright ©  2020")>
 <Assembly: AssemblyTrademark("")>
 
