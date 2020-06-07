@@ -1,4 +1,11 @@
-﻿Public Class AFFICHAGE
+﻿''' <summary>
+''' Formulaire d'Affichage récapitulatif de toute les inscriptions / Bilan Final
+''' Hélène TE, Jules DOUMECHE, 2020
+''' </summary>
+''' 
+Public Class AFFICHAGE
+
+    'Initialise et charge les données et contraintes du formulaire
     Public Sub initialiser()
         Titre.Text = "Etat actuel des inscriptions"
         Lb_Facultative.Visible = False
@@ -18,12 +25,15 @@
         Bt_Fin.Visible = False
     End Sub
 
+    'Initialise et charge les données et contraintes du formulaire en mode Bilan Final
     Public Sub initialiserBilan()
         initialiser()
         Titre.Text = "Bilan Final"
         Bt_Fin.Visible = True
     End Sub
 
+    'Au clic d'un des champs d'une inscription (nom/prénom/numéro)
+    'Affiche les codes des matières sélectionnés de l'inscription sélectionnée
     Private Sub chargerMatières(sender As Object, e As EventArgs) Handles Lb_Prenom.SelectedIndexChanged,
             Lb_Nom.SelectedIndexChanged, Lb_Num.SelectedIndexChanged
         If (sender.Equals(Lb_Num)) Then
@@ -56,36 +66,36 @@
         End If
     End Sub
 
+    'Au clic du boutton retour ou quitter
+    'Retour à l'accueil
     Private Sub Bt_Retour_Click(sender As Object, e As EventArgs) Handles Bt_Retour.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
+    'Au clic du boutton Cloturer les inscriptions
+    'génère les fichiers textes des inscriptions
     Private Sub Bt_Fin_Click(sender As Object, e As EventArgs) Handles Bt_Fin.Click
         générerFichiers()
     End Sub
 
-    Dim draggable As Boolean
-    Dim MouseX As Integer
-    Dim MouseY As Integer
+    ''''
+    'Procédures pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
+    Public draggable As Boolean
+    Public MouseX As Integer
+    Public MouseY As Integer
     Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
-        draggable = True
-        MouseX = Cursor.Position.X - Me.Left
-        MouseY = Cursor.Position.Y - Me.Top
+        Pn_MouseDown(Me)
     End Sub
-
     Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
-        If draggable Then
-            Me.Top = Cursor.Position.Y - MouseY
-            Me.Left = Cursor.Position.X - MouseX
-        End If
+        Pn_MouseMove(Me)
     End Sub
-
     Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
         draggable = False
     End Sub
     Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
         Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
     End Sub
+    ''''
 
 End Class

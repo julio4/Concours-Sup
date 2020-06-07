@@ -1,4 +1,11 @@
-﻿Public Class BILAN_PROVISOIRE
+﻿''' <summary>
+''' Formulaire Bilan Provisoire
+''' Hélène TE, Jules DOUMECHE, 2020
+''' </summary>
+''' 
+Public Class BILAN_PROVISOIRE
+
+    'initialise les contraintes et données du formulaire
     Public Sub initialiser()
         Titre.Text = "Bilan provisoire"
         Lb_Candidat.Visible = False
@@ -33,6 +40,7 @@
         Cb_Matières.SelectedIndex = 0
     End Sub
 
+    'Gère l'alternance entre le bilan individuel et le bilan d'une matière
     Private Sub Rb_BilanIndividuel_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_BilanIndividuel.CheckedChanged
         If Rb_BilanIndividuel.Checked Then
             Cb_Candidats.Visible = True
@@ -43,21 +51,16 @@
         End If
     End Sub
 
-    Private Sub Rb_BilanInscription_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_BilanInscription.CheckedChanged
-        If Rb_BilanInscription.Checked Then
-            Cb_Matières.Visible = True
-            Lb_Matière.Visible = True
-        Else
-            Cb_Matières.Visible = False
-            Lb_Matière.Visible = False
-        End If
-    End Sub
-
+    'Au clic du boutton annuler ou quitter
+    'Retour à l'accueil
     Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
+    'Au clic du boutton Afficher Bilan
+    'Si bilan individuel affichage du formulaire récapitulatif de l'inscription
+    'Si bilan d'une matière affichage du formulaire Bilan des Inscriptions de la matière choisie
     Private Sub AfficherBilan_Click(sender As Object, e As EventArgs) Handles AfficherBilan.Click
         If (Rb_BilanIndividuel.Checked) Then
             RECAPITULATIF.chargerBilan(Cb_Candidats.SelectedItem)
@@ -72,26 +75,22 @@
         End If
     End Sub
 
-    Dim draggable As Boolean
-    Dim MouseX As Integer
-    Dim MouseY As Integer
+    ''''
+    'Procédures pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
+    Public draggable As Boolean
+    Public MouseX As Integer
+    Public MouseY As Integer
     Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
-        draggable = True
-        MouseX = Cursor.Position.X - Me.Left
-        MouseY = Cursor.Position.Y - Me.Top
+        Pn_MouseDown(Me)
     End Sub
-
     Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
-        If draggable Then
-            Me.Top = Cursor.Position.Y - MouseY
-            Me.Left = Cursor.Position.X - MouseX
-        End If
+        Pn_MouseMove(Me)
     End Sub
-
     Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
         draggable = False
     End Sub
     Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
         Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
     End Sub
+    ''''
 End Class

@@ -35,6 +35,7 @@ Partial Class MODIFICATION
         Me.Bt_quitter = New System.Windows.Forms.Button()
         Me.Bt_Minimize = New System.Windows.Forms.Button()
         Me.Gb_Selection = New System.Windows.Forms.GroupBox()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Pn_Top.SuspendLayout()
         Me.Gb_Selection.SuspendLayout()
         Me.SuspendLayout()
@@ -42,6 +43,7 @@ Partial Class MODIFICATION
         'Bt_Annuler
         '
         Me.Bt_Annuler.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Bt_Annuler.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Bt_Annuler.FlatAppearance.BorderColor = System.Drawing.SystemColors.ButtonShadow
         Me.Bt_Annuler.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(CType(CType(253, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(198, Byte), Integer))
         Me.Bt_Annuler.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(253, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(198, Byte), Integer))
@@ -95,9 +97,11 @@ Partial Class MODIFICATION
         '
         'numCandidat
         '
-        Me.numCandidat.Location = New System.Drawing.Point(371, 65)
+        Me.numCandidat.BackColor = System.Drawing.Color.White
+        Me.numCandidat.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.numCandidat.Location = New System.Drawing.Point(372, 63)
         Me.numCandidat.Name = "numCandidat"
-        Me.numCandidat.Size = New System.Drawing.Size(262, 32)
+        Me.numCandidat.Size = New System.Drawing.Size(262, 25)
         Me.numCandidat.TabIndex = 6
         '
         'Rb_NumCandidat
@@ -178,6 +182,7 @@ Partial Class MODIFICATION
         '
         'Gb_Selection
         '
+        Me.Gb_Selection.Controls.Add(Me.Panel3)
         Me.Gb_Selection.Controls.Add(Me.Rb_NumCandidat)
         Me.Gb_Selection.Controls.Add(Me.Cb_Candidats)
         Me.Gb_Selection.Controls.Add(Me.Rb_ListeCandidat)
@@ -189,11 +194,21 @@ Partial Class MODIFICATION
         Me.Gb_Selection.TabStop = False
         Me.Gb_Selection.Text = "Sélection du Candidat"
         '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Panel3.Location = New System.Drawing.Point(371, 97)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(262, 1)
+        Me.Panel3.TabIndex = 18
+        '
         'MODIFICATION
         '
+        Me.AcceptButton = Me.Bt_Modifier
         Me.AutoScaleDimensions = New System.Drawing.SizeF(168.0!, 168.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
+        Me.CancelButton = Me.Bt_Annuler
         Me.ClientSize = New System.Drawing.Size(956, 493)
         Me.Controls.Add(Me.Gb_Selection)
         Me.Controls.Add(Me.Pn_Top)
@@ -226,4 +241,5 @@ Partial Class MODIFICATION
     Friend WithEvents Bt_Minimize As Button
     Friend WithEvents Titre As Label
     Friend WithEvents Gb_Selection As GroupBox
+    Friend WithEvents Panel3 As Panel
 End Class

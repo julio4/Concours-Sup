@@ -270,7 +270,7 @@ Public Class INS_EPREUVES
     End Sub
 
     ''''
-    'Procédure pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
+    'Procédures pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
     Public draggable As Boolean
     Public MouseX As Integer
     Public MouseY As Integer

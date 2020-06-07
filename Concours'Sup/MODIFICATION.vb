@@ -30,6 +30,7 @@ Public Class MODIFICATION
         Cb_Candidats.SelectedIndex = 0
     End Sub
 
+    'Contrainte de saisie du numéro du candidat: numérique
     Private Sub MODIFICATION_KeyPress(sender As Object, e As KeyPressEventArgs) Handles numCandidat.KeyPress
         If e.KeyChar = vbBack Or Char.IsControl(e.KeyChar) Then Exit Sub
         If Not Char.IsDigit(e.KeyChar) Then
@@ -37,6 +38,7 @@ Public Class MODIFICATION
         End If
     End Sub
 
+    'Permet d'activer la sélection de l'inscription par numéro ou par recherche dans une liste
     Private Sub Rb_NumCandidat_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_NumCandidat.CheckedChanged, Rb_ListeCandidat.CheckedChanged
         If (Rb_NumCandidat.Checked) Then
             numCandidat.Enabled = True
@@ -51,11 +53,15 @@ Public Class MODIFICATION
         End If
     End Sub
 
+    'Au clic du boutton annuler ou quitter
+    'Retour à l'accueil
     Private Sub Bt_Annuler_Click(sender As Object, e As EventArgs) Handles Bt_Annuler.Click, Bt_quitter.Click, MyBase.Closing
         Me.Hide()
         ACCUEIL.Show()
     End Sub
 
+    'Au clic du boutton supprimer
+    'charge et affiche le formulaire récapitulatif de l'inscription en mode suppression
     Private Sub Bt_Supprimer_Click(sender As Object, e As EventArgs) Handles Bt_Supprimer.Click
         If (validation()) Then
             RECAPITULATIF.chargerSupprimer(ins)
@@ -64,10 +70,11 @@ Public Class MODIFICATION
         End If
     End Sub
 
+    'Au clic du boutton modifier
+    'Charge les formulaires de saisies en mode modification de l'inscription
+    'Affiche le premier formulaire de saisie des informations
     Private Sub Bt_Modifier_Click(sender As Object, e As EventArgs) Handles Bt_Modifier.Click
         If (validation()) Then
-            'INS_SAISIE.INS_SAISIE_Load(e, e)
-            'INS_EPREUVES.INS_EPREUVES_Load(e, e)
             Me.Hide()
             INS_SAISIE.Show()
             INS_SAISIE.chargerModification(ins)
@@ -75,6 +82,9 @@ Public Class MODIFICATION
         End If
     End Sub
 
+    'Permet de récupérer l'inscription dans la variable ins
+    'Si le numéro ne correspond à aucune inscription alors affichage d'une erreur
+    'Return True si inscription existante, false sinon
     Function validation() As Boolean
         Dim correct As Boolean = True
         If (Rb_NumCandidat.Checked) Then
@@ -107,26 +117,23 @@ Public Class MODIFICATION
         Return False
     End Function
 
-    Dim draggable As Boolean
-    Dim MouseX As Integer
-    Dim MouseY As Integer
+    ''''
+    'Procédures pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
+    Public draggable As Boolean
+    Public MouseX As Integer
+    Public MouseY As Integer
     Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
-        draggable = True
-        MouseX = Cursor.Position.X - Me.Left
-        MouseY = Cursor.Position.Y - Me.Top
+        Pn_MouseDown(Me)
     End Sub
-
     Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
-        If draggable Then
-            Me.Top = Cursor.Position.Y - MouseY
-            Me.Left = Cursor.Position.X - MouseX
-        End If
+        Pn_MouseMove(Me)
     End Sub
-
     Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
         draggable = False
     End Sub
     Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
         Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
     End Sub
+    ''''
+
 End Class

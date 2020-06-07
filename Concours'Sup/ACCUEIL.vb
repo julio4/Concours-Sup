@@ -1,7 +1,8 @@
 ﻿Public Class ACCUEIL
-    Dim draggable As Boolean
-    Dim MouseX As Integer
-    Dim MouseY As Integer
+
+    'Au clic du boutton Enregistrer Inscription
+    'Charge et réinitialise les formulaires de saisies des informations et des épreuves
+    'Affiche le formulaire de saisie des informations
     Private Sub Btn_EnregistrerIns_Click(sender As Object, e As EventArgs) Handles Btn_EnregistrerIns.Click
         Me.Hide()
         If Not Application.OpenForms().OfType(Of INS_SAISIE).Any Then
@@ -14,6 +15,9 @@
         INS_SAISIE.Show()
     End Sub
 
+    'Au clic du boutton Modifier-Supprimer Inscriptions
+    'Charge et réinitialise les formulaires de saisies des informations et des épreuves et le formulaire modification
+    'Affiche le formulaire de modification
     Private Sub Btn_ModificationIns_Click(sender As Object, e As EventArgs) Handles Btn_ModificationIns.Click
         Me.Hide()
         If Not Application.OpenForms().OfType(Of INS_SAISIE).Any Then
@@ -26,46 +30,53 @@
         MODIFICATION.initialiser()
     End Sub
 
+    'Au clic du boutton Afficher Inscriptions
+    'Charge et affiche le formulaire Affichage des Inscriptions
     Private Sub Btn_AfficherIns_Click(sender As Object, e As EventArgs) Handles Btn_AfficherIns.Click
         Me.Hide()
         AFFICHAGE.Show()
         AFFICHAGE.initialiser()
     End Sub
 
+    'Au clic du boutton quitter
+    'Sauvegarde en mémoire les inscriptions et arrêt de l'application
     Private Sub ACCUEIL_Leave(sender As Object, e As EventArgs) Handles Bt_quitter.Click, MyBase.Closing
         sauvegarder()
         quitter()
     End Sub
 
+    'Au clic du boutton Etablir bilan provisoire
+    'Charge et affiche le formulaire Bilan provisoire
     Private Sub Btn_BilanProvisoire_Click(sender As Object, e As EventArgs) Handles Btn_BilanProvisoire.Click
         Me.Hide()
         BILAN_PROVISOIRE.Show()
         BILAN_PROVISOIRE.initialiser()
     End Sub
+
+    'Au clic du boutton Mettre fin aux inscriptions
+    'Charge et affiche le formulaire Affichage des inscription en mode Bilan Final
     Private Sub Bt_FinIns_Click(sender As Object, e As EventArgs) Handles Bt_FinIns.Click
         Me.Hide()
         AFFICHAGE.Show()
         AFFICHAGE.initialiserBilan()
     End Sub
 
+    ''''
+    'Procédures pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
+    Public draggable As Boolean
+    Public MouseX As Integer
+    Public MouseY As Integer
     Private Sub Pn_Top_MouseDown(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseDown
-        draggable = True
-        MouseX = Cursor.Position.X - Me.Left
-        MouseY = Cursor.Position.Y - Me.Top
+        Pn_MouseDown(Me)
     End Sub
-
     Private Sub Pn_Top_MouseMove(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseMove
-        If draggable Then
-            Me.Top = Cursor.Position.Y - MouseY
-            Me.Left = Cursor.Position.X - MouseX
-        End If
+        Pn_MouseMove(Me)
     End Sub
-
     Private Sub Pn_Top_MouseUp(sender As Object, e As MouseEventArgs) Handles Pn_Top.MouseUp
         draggable = False
     End Sub
-
     Private Sub Bt_Minimize_Click(sender As Object, e As EventArgs) Handles Bt_Minimize.Click
         Me.WindowState = System.Windows.Forms.FormWindowState.Minimized
     End Sub
+    ''''
 End Class

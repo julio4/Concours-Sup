@@ -1,32 +1,55 @@
 ﻿Imports System.IO
 Imports System.Text
 
+''' <summary>
+''' Module Main contenant toutes les procédures pour gérer les inscriptions et toute les opérations sur celles-ci
+''' Hélène TE, Jules DOUMECHE, 2020
+''' </summary>
 Module App
-    Const NB_MATIERES_ECRITS = 12
-    Const NB_MATIERES_ORALES = 9
-    Const CHEMIN_SAUVEGARDE_INSCRIPTION = "sauv_ins"
-    Const CHEMIN_SAUVEGARDE_NBINSCRITS = "sauv_nbInscrits"
-    Const CHEMIN_FIN_INSCRIPTIONS = "fin_inscription"
-    Public Const AGE_MIN = 18
-    Public Const AGE_MAX = 55
-    Public Const TEMPS_LIMITE_SAISIE = 60
-    Public Const TEMPS_LIMITE_EPREUVES = 90
-    'Les variables et constantes
-    Dim matièresEcrit(NB_MATIERES_ECRITS - 1) As Matière
-    Dim matièresOrales(NB_MATIERES_ORALES - 1) As Matière
-    Dim matièreVide As Matière
+
+    ''' <summary>
+    ''' Constantes et Variables
+    ''' </summary>
+    'Les régions disponibles
     Dim régions() As String = {"Auvergne", "Bordelais", "Bourgogne",
     "Bretagne", "Corse", "Nord", "Normandie", "Paris", "Poitou",
     "Roussillon"}
-    Dim inscriptions As New List(Of Inscription)
-    Dim dernierNumInscrits As Integer = 0
+    'Le nombres d'épreuves écrits à sélectionner
     Const nbEcrits = 4
+    'Le nombres d'épreuves orales à sélectionner
     Const nbOraux = 3
+    'Le nombre de matières disponible à l'écrit
+    Const NB_MATIERES_ECRITS = 12
+    'Le nombre de matières disponible à l'oral
+    Const NB_MATIERES_ORALES = 9
+    'nom du fichier de sauvegarde des inscriptions
+    Const CHEMIN_SAUVEGARDE_INSCRIPTION = "sauv_ins"
+    'nom du fichier de sauvegarde du nombre d'inscrits
+    Const CHEMIN_SAUVEGARDE_NBINSCRITS = "sauv_nbInscrits"
+    'chemin pour l'enregistrement des fichiers textes du bilan final
+    Const CHEMIN_FIN_INSCRIPTIONS = "fin_inscription"
+    'L'âge minimal d'un candidat
+    Public Const AGE_MIN = 18
+    'L'âge maximal d'un candidat
+    Public Const AGE_MAX = 55
+    'Temps en seconde limite pour la saisie des informations d'une inscription
+    Public Const TEMPS_LIMITE_SAISIE = 60
+    'Temps en seconde limite pour la saisie des épreuves d'une inscription
+    Public Const TEMPS_LIMITE_EPREUVES = 90
 
+    'Initialisation des Objet et Variables de l'applicarion
+    Dim inscriptions As New List(Of Inscription)
+    Dim matièresEcrit(NB_MATIERES_ECRITS - 1) As Matière
+    Dim matièresOrales(NB_MATIERES_ORALES - 1) As Matière
+    Dim matièreVide As Matière
+    Dim dernierNumInscrits As Integer = 0
+
+    'Initialise les variables en début de programme
     Sub initialisation()
         Dim i As Integer = 0
         Dim j As Integer = 0
         matièreVide = New Matière()
+
         'Matières seulement à l'écrit
         matièresEcrit(i) = New Matière("Algorithmique", "ALG")
         i += 1
@@ -73,24 +96,28 @@ Module App
         j += 1
         matièresOrales(j) = New Matière("Espagnol", "ESP")
 
+        'Si sauvegarde existante alors chargement de cette sauvegarde en mémoire
         If System.IO.File.Exists(CHEMIN_SAUVEGARDE_INSCRIPTION) And System.IO.File.Exists(CHEMIN_SAUVEGARDE_NBINSCRITS) Then
             Dim bf As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             Dim fStream As New FileStream(CHEMIN_SAUVEGARDE_INSCRIPTION, FileMode.Open)
             inscriptions = bf.Deserialize(fStream)
             fStream.Close()
-
             fStream = New FileStream(CHEMIN_SAUVEGARDE_NBINSCRITS, FileMode.Open)
             dernierNumInscrits = bf.Deserialize(fStream)
             fStream.Close()
         End If
     End Sub
+
+    'Procédure Main(), entrée de l'application
+    'initialise les variables et affiche le formulaire accueil
     Sub main()
         initialisation()
         Application.EnableVisualStyles()
-            Application.SetCompatibleTextRenderingDefault(False)
-            Application.Run(ACCUEIL)
+        Application.SetCompatibleTextRenderingDefault(False)
+        Application.Run(ACCUEIL)
     End Sub
 
+    'Sauvegarde les inscriptions dans un fichier binaires afin de le charger à la prochaine execution de l'application
     Sub sauvegarder()
         Dim bf As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
         Dim fStream As New FileStream(CHEMIN_SAUVEGARDE_INSCRIPTION, FileMode.Create)
@@ -101,11 +128,14 @@ Module App
         fStream.Close()
     End Sub
 
+    'Quitte l'application
     Sub quitter()
         Application.Exit()
         End
     End Sub
 
+    'Génère les fichiers texte récapitulatif des inscriptions par régions et par matières
+    'Enregistre les fichiers dans le chemin spécifié par CHEMIN_FIN_INSCRIPTIONS
     Sub générerFichiers()
         If (inscriptions.Count = 0 Or inscriptions Is Nothing) Then
             MsgBox("Aucune inscriptions!")
@@ -131,7 +161,7 @@ Module App
                 If Not String.IsNullOrEmpty(sb.ToString()) Then
                     Dim path As String = CHEMIN_FIN_INSCRIPTIONS & "/" & mat.ToString() & " " & région & ".txt"
                     écrits.Add(mat.ToString() & UCase(région))
-                    Using sw As StreamWriter = File.AppendText(Path)
+                    Using sw As StreamWriter = File.AppendText(path)
                         sw.WriteLine("ECRIT")
                         sw.Write(sb.ToString())
                     End Using
@@ -163,30 +193,26 @@ Module App
     Function getNbEcrits() As Integer
         Return nbEcrits
     End Function
-
     Function getNbOraux() As Integer
         Return nbOraux
     End Function
     Function getRégions() As String()
         Return régions
     End Function
-
     Function getMatièresEcrits() As Matière()
         Return matièresEcrit
     End Function
-
     Function getMatièresOrales() As Matière()
         Return matièresOrales
     End Function
-
     Function getNumDernierEnregistrement() As Integer
         Return dernierNumInscrits
     End Function
-
     Function getInscriptions() As List(Of Inscription)
         Return inscriptions
     End Function
 
+    'Retourne l'inscription numéro id
     Function getInscription(id As Integer) As Inscription
         For i As Integer = 0 To inscriptions.Count - 1
             If (inscriptions(i).Num = id) Then
@@ -195,8 +221,9 @@ Module App
         Next i
     End Function
 
-    Function getInscriptionMatière(mat As Matière) As ArrayList
-        Dim liste As ArrayList = New ArrayList()
+    'Retourne la liste des inscriptions contenant la matière mat
+    Function getInscriptionMatière(mat As Matière) As List(Of Inscription)
+        Dim liste As New List(Of Inscription)
         For i As Integer = 0 To inscriptions.Count - 1
             If inscriptions(i).contient(mat) Then
                 liste.Add(inscriptions(i))
@@ -205,6 +232,7 @@ Module App
         Return liste
     End Function
 
+    'Retourne la matière ayant pour libellé nom
     Function getMatière(nom As String) As Matière
         For i As Integer = 0 To matièresEcrit.Length - 1
             If (matièresEcrit(i).Libellé = nom) Then
@@ -219,8 +247,9 @@ Module App
         Return matièreVide
     End Function
 
-    'ENREGISTREMENT DES CANDIDATS
+    'INSCRIPTIONS
 
+    'Enregistre l'inscription avec les champs saisies dans les formulaires
     Sub enregistrerInscription()
         dernierNumInscrits += 1
         Dim écrits(nbEcrits - 1) As Matière
@@ -237,8 +266,7 @@ Module App
                                                      getMatière(RECAPITULATIF.Lb_facultative_donnée.Text)))
     End Sub
 
-    'MODIFICATION ET SUPPRESSION DES CANDIDATS
-
+    'Retourne Vrai si l'id correspond à une inscription, faux sinon
     Function IdValide(id As Integer) As Boolean
         For i As Integer = 0 To inscriptions.Count - 1
             If (inscriptions(i).Num = id) Then
@@ -247,6 +275,8 @@ Module App
         Next i
         Return False
     End Function
+
+    'Supprime l'inscription inscription de la liste des inscriptions
     Sub supprimerInscription(inscription As Inscription)
         For i As Integer = 0 To inscriptions.Count - 1
             If (inscriptions(i).Equals(inscription)) Then
@@ -256,6 +286,7 @@ Module App
         Next i
     End Sub
 
+    'Modifie l'inscription ins avec les données des formulaires
     Sub modifierInscription(ins As Inscription)
         ins.Nom = INS_SAISIE.Nom.Text
         ins.Prénom = INS_SAISIE.Prénom.Text
@@ -277,32 +308,33 @@ Module App
         ins.Oraux = oraux
     End Sub
 
+    'Formatte le temps en "x minutes x secondes" à partir de sec secondes
     Public Function afficherTempsRestant(sec As Integer) As String
-
         Dim minutes As Integer = (Int(sec / 60))
         Dim secondes As Integer = Int(sec Mod 60)
-
         If secondes = 60 Then
             minutes += 1
             secondes = 0
         End If
-
         Return If(minutes > 0, CStr(minutes) &
             If(minutes > 1, " minutes ", " minute "), "") &
           Format(secondes, "00") &
            If(secondes > 1, " secondes", " seconde")
     End Function
 
+    ''''
+    'Procédures pour gérer la barre de haut et les mouvements de la fenêtre des formulaires
     Public Sub Pn_MouseDown(sender As Object)
         sender.draggable = True
         sender.MouseX = Cursor.Position.X - sender.Left
         sender.MouseY = Cursor.Position.Y - sender.Top
     End Sub
-
     Public Sub Pn_MouseMove(sender As Object)
         If sender.draggable Then
             sender.Top = Cursor.Position.Y - sender.MouseY
             sender.Left = Cursor.Position.X - sender.MouseX
         End If
     End Sub
+    '''
+
 End Module

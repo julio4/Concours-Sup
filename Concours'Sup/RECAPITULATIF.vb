@@ -86,7 +86,7 @@ Public Class RECAPITULATIF
     'Charge le formulaire lors d'une suppression d'une inscription
     Public Sub chargerSupprimer(ins As Inscription)
         chargerRecapitulatif(ins)
-        Titre.Text = "Récapitulatif supression " & ins.ToString()
+        Titre.Text = "Récapitulatif suppression " & ins.ToString()
         inscription = ins
         Bt_Enregistrer.Visible = False
         Bt_Modifier.Visible = False
@@ -109,6 +109,7 @@ Public Class RECAPITULATIF
 
     'Charge le formulaire lors d'une modification d'une inscription
     Public Sub chargerModification(ins As Inscription)
+        Titre.Text = "Récapitulatif modification du candidat " & ins.ToString()
         inscription = ins
         Bt_Enregistrer.Visible = False
         Bt_Modifier.Visible = False
@@ -171,7 +172,7 @@ Public Class RECAPITULATIF
     End Sub
 
     ''''
-    'Procédure pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
+    'Procédures pour gérer la barre de haut et les mouvements de la fenêtre du formulaire
     Public draggable As Boolean
     Public MouseX As Integer
     Public MouseY As Integer
