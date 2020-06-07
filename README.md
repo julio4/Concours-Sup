@@ -1,4 +1,4 @@
-# IHM_PJ
+# Concours'Sup
 
 [@Nivada](https://github.com/nivadada)
 [@Julio4](https://github.com/julio4)
