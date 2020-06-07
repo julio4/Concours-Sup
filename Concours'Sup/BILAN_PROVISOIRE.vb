@@ -8,12 +8,12 @@ Public Class BILAN_PROVISOIRE
     'initialise les contraintes et données du formulaire
     Public Sub initialiser()
         Titre.Text = "Bilan provisoire"
+        Rb_BilanIndividuel.Checked = False
+        Rb_BilanInscription.Checked = False
         Lb_Candidat.Visible = False
         Cb_Candidats.Visible = False
         Lb_Matière.Visible = False
         Cb_Matières.Visible = False
-        Rb_BilanIndividuel.Checked = False
-        Rb_BilanInscription.Checked = False
         Cb_Candidats.Items.Clear()
         Cb_Matières.Items.Clear()
         If (getInscriptions.Count = 0) Then
@@ -41,13 +41,17 @@ Public Class BILAN_PROVISOIRE
     End Sub
 
     'Gère l'alternance entre le bilan individuel et le bilan d'une matière
-    Private Sub Rb_BilanIndividuel_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_BilanIndividuel.CheckedChanged
+    Private Sub Rb_BilanIndividuel_CheckedChanged(sender As Object, e As EventArgs) Handles Rb_BilanIndividuel.CheckedChanged, Rb_BilanInscription.CheckedChanged
         If Rb_BilanIndividuel.Checked Then
             Cb_Candidats.Visible = True
             Lb_Candidat.Visible = True
+            Cb_Matières.Visible = False
+            Lb_Matière.Visible = False
         Else
             Cb_Candidats.Visible = False
             Lb_Candidat.Visible = False
+            Cb_Matières.Visible = True
+            Lb_Matière.Visible = True
         End If
     End Sub
 
